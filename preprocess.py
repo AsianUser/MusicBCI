@@ -14,12 +14,22 @@ TARGET_SAMPLING_RATE = 250
 TIME_COL = "Time (s)"
 SAMPLING_RATE_COL = "Sampling Rate"
 CHANNELS = [
-    "FP1","FP2","Channel 3","Channel 4","Channel 5","Channel 6",
-    "Channel 7","Channel 8","Channel 9","Channel 10","Channel 11"
+    "FP1",
+    "FP2",
+    "Channel 3",
+    "Channel 4",
+    "Channel 5",
+    "Channel 6",
+    "Channel 7",
+    "Channel 8",
+    "Channel 9",
+    "Channel 10",
+    "Channel 11",
 ]
 HIGH_PASS = 1.0  # Hz
 LOW_PASS = 40.0  # Hz
 # --------------------------
+
 
 def load_eeg_csv(path):
     df = pd.read_csv(path, sep=";", engine="python")
@@ -27,13 +37,16 @@ def load_eeg_csv(path):
     df[SAMPLING_RATE_COL] = df[SAMPLING_RATE_COL].fillna(method="ffill")
     return df
 
+
 def notch_filter(signal, fs, freq=60.0):
     b, a = iirnotch(freq / (fs / 2), 30)
     return filtfilt(b, a, signal)
 
+
 def bandpass_filter(signal, fs, low=HIGH_PASS, high=LOW_PASS):
-    sos = butter(4, [low, high], btype='band', fs=fs, output='sos')
+    sos = butter(4, [low, high], btype="band", fs=fs, output="sos")
     return sosfiltfilt(sos, signal)
+
 
 def process_eeg(df):
     original_fs = df[SAMPLING_RATE_COL].iloc[0]
@@ -42,7 +55,7 @@ def process_eeg(df):
     eeg_data = df[eeg_channels].values
 
     # Resample
-    num_samples = int((time[-1]-time[0]) * TARGET_SAMPLING_RATE)
+    num_samples = int((time[-1] - time[0]) * TARGET_SAMPLING_RATE)
     resampled_data = {}
     for i, ch in enumerate(eeg_channels):
         data = resample(eeg_data[:, i], num_samples)
@@ -51,8 +64,11 @@ def process_eeg(df):
         resampled_data[ch] = data
 
     new_time = np.linspace(time[0], time[-1], num_samples)
-    out_df = pd.DataFrame({TIME_COL: new_time, SAMPLING_RATE_COL: TARGET_SAMPLING_RATE, **resampled_data})
+    out_df = pd.DataFrame(
+        {TIME_COL: new_time, SAMPLING_RATE_COL: TARGET_SAMPLING_RATE, **resampled_data}
+    )
     return out_df
+
 
 def plot_side_by_side(unfiltered_df, filtered_df):
     fig, axes = plt.subplots(1, 2, figsize=(18, 6), sharey=True)
@@ -77,12 +93,29 @@ def plot_side_by_side(unfiltered_df, filtered_df):
     plt.tight_layout()
     plt.show()
 
+
 def main():
-    df = load_eeg_csv("EEG-IO/S01_data.csv")
-    filtered = process_eeg(df)
-    filtered.to_csv("EEG-IO/S01_data_filtered.csv", index=False)
-    plot_side_by_side(df, filtered)
+    for i in range(20):  # 0 → 19
+        subj = f"S{i:02d}"  # formats to S00, S01, ..., S19
+
+        input_file = f"EEG-IO/{subj}_data.csv"
+        output_file = f"EEG-IO/{subj}_data_filtered.csv"
+
+        print(f"\n=== Processing {subj} ===")
+
+        try:
+            df = load_eeg_csv(input_file)
+        except FileNotFoundError:
+            print(f"File not found: {input_file}, skipping...")
+            continue
+
+        filtered = process_eeg(df)
+        filtered.to_csv(output_file, index=False)
+
+        print(f"Saved filtered file to {output_file}")
+
+        # plot_side_by_side(df, filtered)
+
 
 if __name__ == "__main__":
     main()
-
