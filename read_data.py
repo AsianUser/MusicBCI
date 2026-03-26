@@ -8,16 +8,6 @@ from scipy.signal import *
 import csv
 import matplotlib.pyplot as plt
 
-
-# CHANGE TEST 
-
-
-
-
-
-
-
-
 #Options to read: 'EEG-IO', 'EEG-VV', 'EEG-VR', 'EEG-MB'
 data_folder = 'EEG-VR' 
 
