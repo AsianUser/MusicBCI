@@ -4,7 +4,6 @@ import torch
 from torch.utils.data import Dataset, DataLoader
 import matplotlib.pyplot as plt
 
-
 class EEGPromptWindowDataset(Dataset):
 
 
@@ -109,15 +108,15 @@ def make_loader(
 
 
 
-csv_path = r"C:\Users\arthu\Downloads\MusicBCI_musicheadphone_TamaraRicha_PsychoBen_01_raw.csv"
+import torch
+
+# CSV file path (update this to your actual path)
+csv_path = r"MusicBCI_musicheadphone_TamaraRicha_PsychoBen_01_raw.csv"
 
 loader, dataset = make_loader(
     csv_path,
     batch_size=4,
     sample_rate=300,
-
-    response_start_seconds=0.25,
-    post_seconds=1.5,
 
     chunk_seconds=1.5,
     skip_after_prompt_seconds=0.25,
@@ -129,6 +128,8 @@ loader, dataset = make_loader(
 #Everyday we shuffling/Splitting
 from torch.utils.data import random_split
 
+gen = torch.Generator().manual_seed(42)
+
 dataset_size = len(dataset)
 
 #Splitting into training and testing
@@ -136,13 +137,11 @@ dataset_size = len(dataset)
 train_size = int(0.8 * dataset_size)
 test_size = dataset_size - train_size
 
-train_ds, test_ds = random_split(dataset, [train_size, test_size])
+train_ds, test_ds = random_split(dataset, [train_size, test_size], generator=gen)
 
 train_loader = DataLoader(train_ds, batch_size=32, shuffle=True)
 
-test_loader = DataLoader(test_ds, batch_size=32, shuffle=False)
-
-test_loader = DataLoader(test_ds, batch_size=32, shuffle=False)
+valid_loader = DataLoader(test_ds, batch_size=32, shuffle=False)
 
 
 def visualize_prompts(dataset, seconds=20, channel_idx=0):
@@ -163,7 +162,7 @@ def visualize_prompts(dataset, seconds=20, channel_idx=0):
     plt.legend()
     plt.grid(True)
     plt.tight_layout()
-    plt.show()
+    # plt.show()
 
 # To show a full trial instead of the full recording
 def visualize_trial(dataset, trial_idx=0, channels_to_plot=None):
@@ -194,7 +193,26 @@ def visualize_trial(dataset, trial_idx=0, channels_to_plot=None):
     plt.grid(True)
     plt.tight_layout()
     plt.show()
-
+    
 ### VISUALIZING
-visualize_prompts(dataset, seconds=120, channel_idx=0)
-visualize_trial(dataset, trial_idx=0)
+
+# visualize_prompts(dataset, seconds=120, channel_idx=0)
+# visualize_trial(dataset, trial_idx=0)
+
+print('\n' *6)
+print('----- DONE -----')
+
+# TEST (print first batch shape and labels)
+print('\n' *6)
+print('-------------- DEBUGGING: First batch shape and labels --------------')
+for X_batch, y_batch in train_loader:
+    print("Batch shape:", X_batch.shape)  # [batch, channels, time]
+    print("Labels:", y_batch)
+    print('Type of X_batch:', type(X_batch))
+    print('Type of y_batch:', type(y_batch))
+    break
+print('\n' *6)
+
+print(valid_loader.dataset)
+
+print('\n' *6)
