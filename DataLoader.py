@@ -179,13 +179,13 @@ loader, dataset = make_loader(
     csv_path,
     batch_size=4,
     sample_rate=300,
-<<<<<<< Updated upstream
+
     response_start_seconds=0.25,
     post_seconds=1.5,
-=======
+
     chunk_seconds=1.5,
     skip_after_prompt_seconds=0.25,
->>>>>>> Stashed changes
+
     normalize=True
 )
 
@@ -194,19 +194,18 @@ loader, dataset = make_loader(
 from torch.utils.data import random_split
 
 dataset_size = len(dataset)
-<<<<<<< Updated upstream
-=======
+
 #Splitting into training and testing
->>>>>>> Stashed changes
+
 train_size = int(0.8 * dataset_size)
 test_size = dataset_size - train_size
 
 train_ds, test_ds = random_split(dataset, [train_size, test_size])
 
 train_loader = DataLoader(train_ds, batch_size=32, shuffle=True)
-<<<<<<< Updated upstream
+
 test_loader = DataLoader(test_ds, batch_size=32, shuffle=False)
-=======
+
 test_loader = DataLoader(test_ds, batch_size=32, shuffle=False)
 
 
@@ -263,4 +262,3 @@ def visualize_trial(dataset, trial_idx=0, channels_to_plot=None):
 ### VISUALIZING
 visualize_prompts(dataset, seconds=120, channel_idx=0)
 visualize_trial(dataset, trial_idx=0)
->>>>>>> Stashed changes
