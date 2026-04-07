@@ -2,10 +2,7 @@ import numpy as np
 import pandas as pd
 import torch
 from torch.utils.data import Dataset, DataLoader
-<<<<<<< Updated upstream
-=======
 import matplotlib.pyplot as plt
->>>>>>> Stashed changes
 
 
 class EEGPromptWindowDataset(Dataset):
@@ -16,24 +13,14 @@ class EEGPromptWindowDataset(Dataset):
         csv_path: str,
         sample_rate: int = 300,
         marker_col: str = "Trigger",
-<<<<<<< Updated upstream
-        pre_seconds: float = 0.0,
-        post_seconds: float = 1.5,
-        response_start_seconds: float = 0.2,
-=======
         chunk_seconds: float = 1.5,
         skip_after_prompt_seconds: float = 0.25,
->>>>>>> Stashed changes
         label_from_trigger: bool = True,
         normalize: bool = True,
     ):
         df = pd.read_csv(csv_path, comment="#")
 
-<<<<<<< Updated upstream
-        # Columns that are not EEG channels
-=======
         # Excluding Columns that are not EEG channels
->>>>>>> Stashed changes
         exclude = {
             "Time", marker_col, "Time_Offset", "ADC_Status",
             "ADC_Sequence", "Event", "Comments"
@@ -53,11 +40,7 @@ class EEGPromptWindowDataset(Dataset):
         data = df[eeg_cols].to_numpy(dtype=np.float32)
         trigger = df[marker_col].fillna(0).astype(int).to_numpy()
 
-<<<<<<< Updated upstream
-        # Noclue what tf CHATGPT did here Optional channel-wise z-score normalization
-=======
         # MAY WANT TO COMMENT NORMALIZATION OUT Noclue what tf CHATGPT did here Optional channel-wise z-score normalization
->>>>>>> Stashed changes
         if normalize:
             mean = data.mean(axis=0, keepdims=True)
             std = data.std(axis=0, keepdims=True)
@@ -67,53 +50,12 @@ class EEGPromptWindowDataset(Dataset):
         self.data = data
         self.trigger = trigger
 
-<<<<<<< Updated upstream
-        # Detect prompt onset: nonzero sample preceded by zero
-=======
         # Detecting prompt onset from the trigger column: nonzero sample preceded by zero
->>>>>>> Stashed changes
         onsets = np.where((trigger != 0) & np.r_[True, trigger[:-1] == 0])[0]
 
         self.onsets = onsets.tolist()
         self.labels = [int(trigger[i]) for i in self.onsets] if label_from_trigger else [0] * len(self.onsets)
 
-<<<<<<< Updated upstream
-        # Trial windowing
-        self.pre_samples = int(round(pre_seconds * sample_rate))
-        self.post_samples = int(round(post_seconds * sample_rate))
-        self.response_start_samples = int(round(response_start_seconds * sample_rate))
-
-        # final window begins after prompt + response_start_seconds
-        self.window_len = max(1, self.post_samples - self.response_start_samples)
-
-        # Keep only valid windows that have enough data
-        valid = []
-        for idx, onset in enumerate(self.onsets):
-            start = onset + self.response_start_samples - self.pre_samples
-            end = start + self.window_len
-            if end <= len(self.data):
-                valid.append(idx)
-
-        self.valid_indices = valid
-
-    def __len__(self):
-        return len(self.valid_indices)
-
-    def __getitem__(self, idx):
-        trial_idx = self.valid_indices[idx]
-        onset = self.onsets[trial_idx]
-
-        start = onset + self.response_start_samples - self.pre_samples
-        end = start + self.window_len
-
-        x = self.data[start:end]  # [time, channels]
-
-        # Return as [channels, time] for PyTorch models
-        x = torch.from_numpy(x.T.copy()).float()
-
-        # Trigger values 1..8 become class labels 0..7
-        y = torch.tensor(self.labels[trial_idx] - 1, dtype=torch.long)
-=======
         # trial windowing
         self.chunk_samples = int(round(chunk_seconds * sample_rate))
         self.skip_samples = int(round(skip_after_prompt_seconds * sample_rate))
@@ -150,7 +92,6 @@ class EEGPromptWindowDataset(Dataset):
         x = self.data[start:end]  # [time, channels]
         x = torch.from_numpy(x.T.copy()).float()  # [channels, time]
         y = torch.tensor(self.labels[idx], dtype=torch.long)
->>>>>>> Stashed changes
 
         return x, y
 
@@ -168,11 +109,6 @@ def make_loader(
 
 
 
-<<<<<<< Updated upstream
-import torch
-
-=======
->>>>>>> Stashed changes
 csv_path = r"C:\Users\arthu\Downloads\MusicBCI_musicheadphone_TamaraRicha_PsychoBen_01_raw.csv"
 
 loader, dataset = make_loader(
