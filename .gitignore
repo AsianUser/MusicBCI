@@ -208,3 +208,4 @@ __marimo__/
 *.py
 *.py
 DataLoader.py
+.idea
