@@ -37,7 +37,7 @@ optimizer = optim.Adam(model.parameters(), lr=1e-3)
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model.to(device)
 
-for epoch in range(10):
+for epoch in range(100):
     model.train()
     running_loss = 0.0
 
@@ -53,19 +53,24 @@ for epoch in range(10):
 
         running_loss += loss.item()
 
-    print(f"Epoch {epoch + 1}/10 | Loss: {running_loss / len(train_loader):.4f}")
+    print(f"Epoch {epoch + 1}/100 | Loss: {running_loss / len(train_loader):.4f}")
 
-model.eval()
-correct = 0
-total = 0
+    # ✅ Validate every 10 epochs
+    if (epoch + 1) % 10 == 0:
+        model.eval()
+        correct = 0
+        total = 0
 
-with torch.no_grad():
-    for inputs, labels in valid_loader:
-        inputs = inputs.to(device)
-        labels = labels.to(device)
-        outputs = model(inputs)
-        preds = torch.argmax(outputs, dim=1)
-        correct += (preds == labels).sum().item()
-        total += labels.size(0)
+        with torch.no_grad():
+            for inputs, labels in valid_loader:
+                inputs = inputs.to(device)
+                labels = labels.to(device)
 
-print(f"Validation accuracy: {correct / total:.4f}")
+                outputs = model(inputs)
+                preds = torch.argmax(outputs, dim=1)
+
+                correct += (preds == labels).sum().item()
+                total += labels.size(0)
+
+        acc = correct / total if total > 0 else 0
+        print(f"👉 Validation @ epoch {epoch + 1}: {acc:.4f}")
