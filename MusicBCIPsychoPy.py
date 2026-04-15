@@ -131,7 +131,7 @@ for trial_count in range(0, total_trials):
         tstart_wait = global_clock.getTime()
         while global_clock.getTime() - tstart_wait < prime_time:
             # prime screen for user
-            core.wait(0.01)   
+            core.wait(0.01)
 
         # reset screen
         win.flip()
