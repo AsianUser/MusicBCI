@@ -209,3 +209,4 @@ __marimo__/
 *.py
 DataLoader.py
 .idea
+MusicBCI_Data/
