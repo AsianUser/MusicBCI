@@ -2,9 +2,10 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import Dataset, DataLoader
-import torchvision
-import torchvision.transforms as transforms
-import timm
+
+# import torchvision
+# import torchvision.transforms as transforms
+# import timm
 
 import torch.nn.functional as F
 import matplotlib.pyplot as plt  # For data viz
