@@ -65,7 +65,7 @@ def create_windows_generic(
     if len(windows) == 0:
         return np.empty((0, len(eeg_cols), chunk_samples), dtype=np.float32), [], []
 
-    return np.stack(windows).astype(np.float32), valid_onsets, labels
+    return np.stack(windows).astype(np.float32), valid_onsets, labels, eeg_cols
 
 
 def create_windows_raise_triggers(
@@ -154,4 +154,4 @@ def create_windows_raise_triggers(
     if len(windows) == 0:
         return np.empty((0, len(eeg_cols), chunk_samples), dtype=np.float32), [], []
 
-    return np.stack(windows).astype(np.float32), window_onsets, labels
+    return np.stack(windows).astype(np.float32), window_onsets, labels, eeg_cols
