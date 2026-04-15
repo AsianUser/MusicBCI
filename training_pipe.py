@@ -24,6 +24,8 @@ test_size = dataset_size - train_size
 train_ds, test_ds = random_split(dataset, [train_size, test_size], generator=gen)
 train_loader = DataLoader(train_ds, batch_size=32, shuffle=True)
 valid_loader = DataLoader(test_ds, batch_size=32, shuffle=False)
+print(f"Dataset size: {dataset_size} | Train: {train_size} | Test: {test_size}")
+
 
 x_batch, y_batch = next(iter(train_loader))
 input_channels = x_batch.shape[1]
@@ -73,4 +75,4 @@ for epoch in range(100):
                 total += labels.size(0)
 
         acc = correct / total if total > 0 else 0
-        print(f"👉 Validation @ epoch {epoch + 1}: {acc:.4f}")
+        print(f"Validation @ epoch {epoch + 1}: {acc:.4f}")
