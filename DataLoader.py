@@ -126,7 +126,8 @@ def main():
         normalize=True,
     )
 
-    gen = torch.Generator().manual_seed(42)
+    gen = torch.Generator().manual_seed(41526)
+    # was 42
 
     dataset_size = len(dataset)
     train_size = int(0.8 * dataset_size)
