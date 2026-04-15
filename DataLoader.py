@@ -1,105 +1,112 @@
 import numpy as np
 import pandas as pd
 import torch
-from torch.utils.data import Dataset, DataLoader
+from torch.utils.data import DataLoader, TensorDataset, random_split
 import matplotlib.pyplot as plt
-
-from WindowMethods import create_windows_raise_triggers, create__windows_generic
-
 from pathlib import Path
-from types import SimpleNamespace
-
-# Everyday we shuffling/Splitting
-from torch.utils.data import random_split
 
 from WindowMethods import create_windows_generic, create_windows_raise_triggers
-
 
 SPECIAL_FOLDER = "NOTE MUST Raise All Trigger Vals by 1"
 
 
-def make_loader(
-    csv_path: str, batch_size: int = 8, shuffle: bool = True, **dataset_kwargs
-):
+def load_one_csv(csv_path: Path, **dataset_kwargs):
     df = pd.read_csv(csv_path, comment="#")
 
-    if SPECIAL_FOLDER in Path(csv_path).parts:
+    if SPECIAL_FOLDER in csv_path.parts:
         windows, onsets, labels, eeg_cols = create_windows_raise_triggers(
             df, **dataset_kwargs
         )
     else:
         windows, onsets, labels, eeg_cols = create_windows_generic(df, **dataset_kwargs)
 
-    X = torch.from_numpy(windows).float()  # [N, channels, time]
-    y = torch.tensor(labels, dtype=torch.long)
+    return windows, onsets, labels, eeg_cols
 
-    dataset = TensorDataset(X, y)
-    dataset.onsets = onsets
-    dataset.eeg_cols = eeg_cols
-    dataset.sample_rate = dataset_kwargs.get("sample_rate", 300)
-    dataset.chunk_samples = int(
-        round(dataset_kwargs.get("chunk_seconds", 1.5) * dataset.sample_rate)
-    )
-    dataset.skip_samples = int(
-        round(
-            dataset_kwargs.get("skip_after_prompt_seconds", 0.25) * dataset.sample_rate
+
+def make_dataset_from_folder(root_dir: str, **dataset_kwargs):
+    root_dir = Path(root_dir)
+    csv_files = sorted(root_dir.rglob("*.csv"))
+
+    if not csv_files:
+        raise ValueError(f"No CSV files found under: {root_dir}")
+
+    all_X = []
+    all_y = []
+    all_sources = []
+    file_meta = []
+
+    for csv_path in csv_files:
+        windows, onsets, labels, eeg_cols = load_one_csv(csv_path, **dataset_kwargs)
+
+        if windows is None or len(windows) == 0:
+            continue
+
+        X = torch.from_numpy(windows).float()
+        y = torch.tensor(labels, dtype=torch.long)
+
+        all_X.append(X)
+        all_y.append(y)
+        all_sources.extend([str(csv_path)] * len(labels))
+
+        file_meta.append(
+            {
+                "path": str(csv_path),
+                "onsets": onsets,
+                "eeg_cols": eeg_cols,
+                "n_windows": len(labels),
+                "special": SPECIAL_FOLDER in csv_path.parts,
+            }
         )
-    )
 
-    loader = DataLoader(
-        dataset, batch_size=batch_size, shuffle=shuffle, drop_last=False
-    )
-    return loader, dataset
+    if not all_X:
+        raise ValueError(f"No usable windows found under: {root_dir}")
 
+    X_all = torch.cat(all_X, dim=0)
+    y_all = torch.cat(all_y, dim=0)
 
-def visualize_prompts(dataset, seconds=20, channel_idx=0):
+    dataset = TensorDataset(X_all, y_all)
 
-    n_samples = min(int(seconds * dataset.sample_rate), len(dataset.data))
-    t = np.arange(n_samples) / dataset.sample_rate
+    meta = {
+        "X": X_all,
+        "y": y_all,
+        "sources": all_sources,
+        "file_meta": file_meta,
+        "sample_rate": dataset_kwargs.get("sample_rate", 300),
+        "chunk_seconds": dataset_kwargs.get("chunk_seconds", 1.5),
+        "skip_after_prompt_seconds": dataset_kwargs.get(
+            "skip_after_prompt_seconds", 0.25
+        ),
+    }
 
-    plt.figure(figsize=(14, 5))
-    plt.plot(
-        t, dataset.data[:n_samples, channel_idx], label=dataset.eeg_cols[channel_idx]
-    )
-
-    for onset in dataset.onsets:
-        if onset < n_samples:
-            plt.axvline(
-                onset / dataset.sample_rate, color="red", linestyle="--", alpha=0.7
-            )
-
-    plt.title(f"First {seconds} seconds with prompt markers")
-    plt.xlabel("Time (seconds)")
-    plt.ylabel("Amplitude")
-    plt.legend()
-    plt.grid(True)
-    plt.tight_layout()
-    # plt.show()
+    return dataset, meta
 
 
-# To show a full trial instead of the full recording
-def visualize_trial(dataset, trial_idx=0, channels_to_plot=None):
-    trial_idx = min(trial_idx, len(dataset) - 1)
+def visualize_trial(meta, trial_idx=0, channels_to_plot=None):
+    X = meta["X"]
+    y = meta["y"]
+    sources = meta["sources"]
+    sample_rate = meta["sample_rate"]
 
-    onset = dataset.onsets[trial_idx]
-    start = onset + dataset.skip_samples
-    end = start + dataset.chunk_samples
+    trial_idx = min(trial_idx, len(X) - 1)
 
-    x = dataset.data[start:end]  # [time, channels]
-    t = np.arange(x.shape[0]) / dataset.sample_rate
+    x = X[trial_idx].cpu().numpy()  # [channels, time]
+    source = sources[trial_idx]
+    t = np.arange(x.shape[1]) / sample_rate
 
     if channels_to_plot is None:
-        channels_to_plot = list(range(min(5, x.shape[1])))
+        channels_to_plot = list(range(min(5, x.shape[0])))
 
     plt.figure(figsize=(14, 6))
 
     offset = 0.0
     spacing = 3.0
     for ch in channels_to_plot:
-        plt.plot(t, x[:, ch] + offset, label=dataset.eeg_cols[ch])
+        plt.plot(t, x[ch] + offset, label=f"ch {ch}")
         offset += spacing
 
-    plt.title(f"Trial {trial_idx} | label={dataset.labels[trial_idx]}")
+    plt.title(
+        f"Trial {trial_idx} | label={y[trial_idx].item()} | source={Path(source).name}"
+    )
     plt.xlabel("Time (seconds)")
     plt.ylabel("Amplitude + offset")
     plt.legend(loc="upper right")
@@ -109,16 +116,10 @@ def visualize_trial(dataset, trial_idx=0, channels_to_plot=None):
 
 
 def main():
-    ### VISUALIZING
+    root_dir = r"MusicBCI"
 
-    # visualize_prompts(dataset, seconds=120, channel_idx=0)
-    # visualize_trial(dataset, trial_idx=0)
-    # CSV file  path (update this to your actual path)
-    csv_path = r"MusicBCI_musicheadphone_TamaraRicha_PsychoBen_01_raw.csv"
-
-    loader, dataset = make_loader(
-        csv_path,
-        batch_size=4,
+    dataset, meta = make_dataset_from_folder(
+        root_dir,
         sample_rate=300,
         chunk_seconds=1.5,
         skip_after_prompt_seconds=0.25,
@@ -128,35 +129,26 @@ def main():
     gen = torch.Generator().manual_seed(42)
 
     dataset_size = len(dataset)
-
-    # Splitting into training and testing
-
     train_size = int(0.8 * dataset_size)
     test_size = dataset_size - train_size
 
     train_ds, test_ds = random_split(dataset, [train_size, test_size], generator=gen)
 
     train_loader = DataLoader(train_ds, batch_size=32, shuffle=True)
-
     valid_loader = DataLoader(test_ds, batch_size=32, shuffle=False)
 
-    print("\n" * 6)
     print("----- DONE -----")
+    print("Train size:", len(train_ds))
+    print("Valid size:", len(test_ds))
 
-    # TEST (print first batch shape and labels)
-    print("\n" * 6)
-    print("-------------- DEBUGGING: First batch shape and labels --------------")
     for X_batch, y_batch in train_loader:
-        print("Batch shape:", X_batch.shape)  # [batch, channels, time]
+        print("Batch shape:", X_batch.shape)
         print("Labels:", y_batch)
         print("Type of X_batch:", type(X_batch))
         print("Type of y_batch:", type(y_batch))
         break
-    print("\n" * 6)
 
     print(valid_loader.dataset)
-
-    print("\n" * 6)
 
 
 if __name__ == "__main__":
