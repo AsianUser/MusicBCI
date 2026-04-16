@@ -72,7 +72,6 @@ def detect_trigger_onsets(df, trig_col, time_col):
 def plot_with_triggers(
     df_seg, time_col, channels, trigger_times, trigger_values, highlight_window=2.0
 ):
-
     plt.figure(figsize=(14, 6))
     ax = plt.gca()
 
@@ -106,18 +105,13 @@ def plot_with_triggers(
 
     plt.xlabel("Time (s)")
     plt.ylabel("Amplitude (uV)")
-    plt.title("EEG (First 100s) — 2s After Each Trigger (Color Coded 1–8)")
+    plt.title("EEG — Trigger Windows")
     plt.xlim(t.min(), t.max())
     plt.tight_layout()
     plt.show()
 
 
-# -------------------------------------------------
-# Main
-# -------------------------------------------------
-def run(path):
-
-    SHOW_SECONDS = 100.0
+def run(path, show_seconds=None):
     HIGHLIGHT_WINDOW = 2.0
 
     metadata, df = parse_eeg_csv(path)
@@ -128,27 +122,28 @@ def run(path):
     df[time_col] = pd.to_numeric(df[time_col], errors="coerce")
     df = df.dropna(subset=[time_col])
 
-    # First 100 seconds
-    df_seg = df[df[time_col] <= SHOW_SECONDS].copy()
-
     # Channels
     preferred = ["LE", "F4", "C4", "P4", "P3", "C3", "F3", "Pz"]
     channels = [c for c in preferred if c in df.columns]
 
-    # Trigger detection
+    # Trigger detection on full data
     trigger_times, trigger_values = detect_trigger_onsets(df, trig_col, time_col)
 
-    # Keep only triggers within 100s
-    mask = trigger_times <= SHOW_SECONDS
-    trigger_times = trigger_times[mask]
-    trigger_values = trigger_values[mask]
+    # Optional time limit
+    if show_seconds is not None:
+        df_seg = df[df[time_col] <= show_seconds].copy()
+        mask = trigger_times <= show_seconds
+        trigger_times = trigger_times[mask]
+        trigger_values = trigger_values[mask]
+    else:
+        df_seg = df.copy()
 
     plot_with_triggers(
-        df_seg,
-        time_col,
-        channels,
-        trigger_times,
-        trigger_values,
+        df_seg=df_seg,
+        time_col=time_col,
+        channels=channels,
+        trigger_times=trigger_times,
+        trigger_values=trigger_values,
         highlight_window=HIGHLIGHT_WINDOW,
     )
 
@@ -158,4 +153,4 @@ def run(path):
 # -------------------------------------------------
 if __name__ == "__main__":
     file_path = r"MusicBCI_musicheadphone_TamaraRicha_PsychoBen_01_raw.csv"
-    run(file_path)
+    run(file_path, show_seconds=None)  # no limit
