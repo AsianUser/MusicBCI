@@ -81,6 +81,85 @@ def make_dataset_from_folder(root_dir: str, **dataset_kwargs):
     return dataset, meta
 
 
+def make_per_trigger_dataloaders(
+    root_dir: str,
+    batch_size: int = 32,
+    train_split: float = 0.8,
+    seed: int = 41526,
+    **dataset_kwargs,
+) -> dict[int, tuple[DataLoader, DataLoader]]:
+    """
+    Build one (train_loader, valid_loader) pair per unique trigger label.
+
+    Each pair contains ONLY windows for that specific trigger label
+    combined with all no-activity windows (label 0), so every loader
+    is a clean binary-ish slice of the full dataset.
+
+    Label 0  → no-activity only  (pure baseline loader)
+    Label N  → trigger-N windows  +  no-activity windows
+
+    Returns
+    -------
+    dict  {label: (train_loader, valid_loader)}
+        Keys are ints matching the values found in y_all.
+    """
+    _, meta = make_dataset_from_folder(root_dir, **dataset_kwargs)
+
+    X_all: torch.Tensor = meta["X"]  # [N, channels, time]
+    y_all: torch.Tensor = meta["y"]  # [N]
+
+    unique_labels = sorted(y_all.unique().tolist())
+    no_activity_mask = y_all == 0
+
+    print(f"Found {len(unique_labels)} unique labels: {[int(l) for l in unique_labels]}")
+    print(f"No-activity windows (label 0): {no_activity_mask.sum().item()}\n")
+
+    per_trigger_loaders: dict[int, tuple[DataLoader, DataLoader]] = {}
+
+    # Shared generator for DataLoader shuffling (reproducible batch ordering)
+    shuffle_gen = torch.Generator().manual_seed(seed)
+
+    for label in unique_labels:
+        if label == 0:
+            # Baseline loader: all no-activity windows only
+            mask = no_activity_mask
+        else:
+            # Trigger-N loader: that trigger  +  no-activity windows
+            trigger_mask = y_all == label
+            mask = trigger_mask | no_activity_mask
+
+        X_sub = X_all[mask]
+        y_sub = y_all[mask]
+
+        ds = TensorDataset(X_sub, y_sub)
+
+        n_total = len(ds)
+        n_train = int(train_split * n_total)
+        n_valid = n_total - n_train
+
+        # Each label gets its own seed so splits are independent but reproducible
+        split_gen = torch.Generator().manual_seed(seed + int(label))
+        train_ds, valid_ds = random_split(ds, [n_train, n_valid], generator=split_gen)
+
+        train_loader = DataLoader(
+            train_ds, batch_size=batch_size, shuffle=True, generator=shuffle_gen
+        )
+        valid_loader = DataLoader(valid_ds, batch_size=batch_size, shuffle=False)
+
+        per_trigger_loaders[int(label)] = (train_loader, valid_loader)
+
+        # Label counts inside this subset
+        trigger_count = (y_sub != 0).sum().item() if label != 0 else 0
+        baseline_count = (y_sub == 0).sum().item()
+        print(
+            f"  Label {int(label):>2d} | total={n_total:>5d} "
+            f"(train={n_train}, valid={n_valid}) "
+            f"[trigger={trigger_count}, baseline={baseline_count}]"
+        )
+
+    return per_trigger_loaders
+
+
 def visualize_trial(meta, trial_idx=0, channels_to_plot=None):
     X = meta["X"]
     y = meta["y"]
@@ -150,6 +229,26 @@ def main():
         break
 
     print(valid_loader.dataset)
+
+    # ── Per-trigger loaders ────────────────────────────────────────────────
+    print("\n----- PER-TRIGGER DATALOADERS -----")
+    per_loaders = make_per_trigger_dataloaders(
+        root_dir,
+        batch_size=32,
+        train_split=0.8,
+        seed=41526,
+        sample_rate=300,
+        chunk_seconds=1.5,
+        skip_after_prompt_seconds=0.25,
+        normalize=True,
+    )
+
+    # Quick sanity-check: print one batch from each loader
+    for label, (tr_loader, va_loader) in per_loaders.items():
+        for X_b, y_b in tr_loader:
+            print(f"\n  [Label {label}] batch shape={X_b.shape}, "
+                  f"unique y in batch={y_b.unique().tolist()}")
+            break
 
 
 if __name__ == "__main__":
