@@ -137,7 +137,7 @@ def generate_all_confusion_matrices(
 # If you just want to run this file directly, import your train pipeline here.
 
 if __name__ == "__main__":
-    from train import (
+    from training_pipe import (
         main as run_training,
         build_full_loaders,
         BATCH_SIZE,
