@@ -36,11 +36,13 @@ def load_one_csv(csv_path: Path, trigger_col: str = "Trigger", **dataset_kwargs)
     # rather than forwarding trigger_col as a kwarg it doesn't accept.
     df = df.rename(columns={trigger_col: "Trigger"})
 
-    windows, onsets, labels, eeg_cols = create_windows_generic(df, **dataset_kwargs)
+    windows, onsets, labels, eeg_cols = create_windows_generic(
+        df, **dataset_kwargs
+    )
 
     # ── Per-file label inventory ──────────────────────────────────────────────
     if labels is not None and len(labels) > 0:
-        counts = Counter(labels.tolist())
+        counts = Counter(labels if isinstance(labels, list) else labels.tolist())
         print(f"\n  {csv_path.name}")
         print(f"  {'Label':>6}  {'Name':<14}  {'Count':>6}")
         print(f"  {'─' * 32}")
@@ -53,9 +55,7 @@ def load_one_csv(csv_path: Path, trigger_col: str = "Trigger", **dataset_kwargs)
     return windows, onsets, labels, eeg_cols
 
 
-def make_dataset_from_folder(
-    root_dir: str, trigger_col: str = "Trigger", **dataset_kwargs
-):
+def make_dataset_from_folder(root_dir: str, trigger_col: str = "Trigger", **dataset_kwargs):
     root_dir = Path(root_dir)
     csv_files = sorted(root_dir.rglob("*.csv"))
 
@@ -107,7 +107,7 @@ def make_dataset_from_folder(
     print(f"  {'Label':>6}  {'Name':<14}  {'Count':>6}  {'%':>6}")
     print(f"{'─' * 42}")
     for lbl in sorted(global_counts):
-        name = GLOBAL_CLASS_NAMES.get(int(lbl), f"unknown_{lbl}")
+        name  = GLOBAL_CLASS_NAMES.get(int(lbl), f"unknown_{lbl}")
         count = global_counts[lbl]
         print(f"  {int(lbl):>6}  {name:<14}  {count:>6,}  {count/total:>5.1%}")
     print(f"{'─' * 42}")
