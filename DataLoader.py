@@ -32,9 +32,11 @@ def load_one_csv(csv_path: Path, trigger_col: str = "Trigger", **dataset_kwargs)
             f"Available columns: {df.columns.tolist()}"
         )
 
-    windows, onsets, labels, eeg_cols = create_windows_generic(
-        df, trigger_col=trigger_col, **dataset_kwargs
-    )
+    # Rename the trigger column to whatever create_windows_generic expects,
+    # rather than forwarding trigger_col as a kwarg it doesn't accept.
+    df = df.rename(columns={trigger_col: "Trigger"})
+
+    windows, onsets, labels, eeg_cols = create_windows_generic(df, **dataset_kwargs)
 
     # ── Per-file label inventory ──────────────────────────────────────────────
     if labels is not None and len(labels) > 0:
