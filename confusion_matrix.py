@@ -145,7 +145,7 @@ if __name__ == "__main__":
         DATASET_KWARGS,
         ROOT_DIR,
     )
-    from DataLoader import make_per_trigger_dataloaders, make_three_group_dataloaders
+    from DataLoader import make_per_trigger_dataloaders, make_three_group_dataloaders,    make_group_dataloader
     from torch.utils.data import DataLoader
 
     # ── Re-run (or load cached) training ─────────────────────────────────────
@@ -174,6 +174,17 @@ if __name__ == "__main__":
     )
     for name, (_, va) in group_loaders.items():
         valid_loaders[name] = va
+        
+    
+    _, custom_va = make_group_dataloader(
+        ROOT_DIR,
+        trigger_labels=[2, 3, 5, 8],
+        batch_size=BATCH_SIZE,
+        train_split=0.8,
+        seed=SEED,
+        **DATASET_KWARGS,
+    )
+    valid_loaders["group_2358"] = custom_va
 
     # ── Generate ───────────────────────────────────────────────────────────────
     generate_all_confusion_matrices(
