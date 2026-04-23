@@ -1,0 +1,1524 @@
+==========================================
+SLURM_JOB_ID = 8298823
+SLURM_JOB_NODELIST = b22-05
+TMPDIR = /tmp/SLURM_8298823
+==========================================
+Full dataset  | total=1167 | train=933 | test=234
+
+═══════════════════════════════════════════════════════
+  Training: [full dataset]  |  classes=9  |  train=933  valid=234
+═══════════════════════════════════════════════════════
+  Epoch   1/100 | loss: 2.1262
+  Epoch   2/100 | loss: 2.0197
+  Epoch   3/100 | loss: 1.9471
+  Epoch   4/100 | loss: 1.9072
+  Epoch   5/100 | loss: 1.8902
+  Epoch   6/100 | loss: 1.8260
+  Epoch   7/100 | loss: 1.7811
+  Epoch   8/100 | loss: 1.7408
+  Epoch   9/100 | loss: 1.7101
+  Epoch  10/100 | loss: 1.6505
+  ✔ Validation @ epoch 10: acc=0.3034
+  Epoch  11/100 | loss: 1.6235
+  Epoch  12/100 | loss: 1.5932
+  Epoch  13/100 | loss: 1.5422
+  Epoch  14/100 | loss: 1.5319
+  Epoch  15/100 | loss: 1.4614
+  Epoch  16/100 | loss: 1.4358
+  Epoch  17/100 | loss: 1.4038
+  Epoch  18/100 | loss: 1.3715
+  Epoch  19/100 | loss: 1.3432
+  Epoch  20/100 | loss: 1.2877
+  ✔ Validation @ epoch 20: acc=0.3547
+  Epoch  21/100 | loss: 1.2744
+  Epoch  22/100 | loss: 1.2204
+  Epoch  23/100 | loss: 1.1683
+  Epoch  24/100 | loss: 1.2267
+  Epoch  25/100 | loss: 1.1482
+  Epoch  26/100 | loss: 1.1230
+  Epoch  27/100 | loss: 1.1074
+  Epoch  28/100 | loss: 1.0671
+  Epoch  29/100 | loss: 1.0523
+  Epoch  30/100 | loss: 1.0120
+  ✔ Validation @ epoch 30: acc=0.3632
+  Epoch  31/100 | loss: 0.9538
+  Epoch  32/100 | loss: 0.9590
+  Epoch  33/100 | loss: 0.8749
+  Epoch  34/100 | loss: 0.8326
+  Epoch  35/100 | loss: 0.8392
+  Epoch  36/100 | loss: 0.7815
+  Epoch  37/100 | loss: 0.7835
+  Epoch  38/100 | loss: 0.7839
+  Epoch  39/100 | loss: 0.7874
+  Epoch  40/100 | loss: 0.7443
+  ✔ Validation @ epoch 40: acc=0.3846
+  Epoch  41/100 | loss: 0.7113
+  Epoch  42/100 | loss: 0.6642
+  Epoch  43/100 | loss: 0.6180
+  Epoch  44/100 | loss: 0.5896
+  Epoch  45/100 | loss: 0.5778
+  Epoch  46/100 | loss: 0.5415
+  Epoch  47/100 | loss: 0.5374
+  Epoch  48/100 | loss: 0.5499
+  Epoch  49/100 | loss: 0.5992
+  Epoch  50/100 | loss: 0.5344
+  ✔ Validation @ epoch 50: acc=0.3932
+  Epoch  51/100 | loss: 0.4982
+  Epoch  52/100 | loss: 0.4390
+  Epoch  53/100 | loss: 0.4252
+  Epoch  54/100 | loss: 0.4042
+  Epoch  55/100 | loss: 0.4455
+  Epoch  56/100 | loss: 0.4679
+  Epoch  57/100 | loss: 0.4463
+  Epoch  58/100 | loss: 0.4571
+  Epoch  59/100 | loss: 0.4185
+  Epoch  60/100 | loss: 0.3625
+  ✔ Validation @ epoch 60: acc=0.3974
+  Epoch  61/100 | loss: 0.3163
+  Epoch  62/100 | loss: 0.3091
+  Epoch  63/100 | loss: 0.3159
+  Epoch  64/100 | loss: 0.3327
+  Epoch  65/100 | loss: 0.2679
+  Epoch  66/100 | loss: 0.2365
+  Epoch  67/100 | loss: 0.2419
+  Epoch  68/100 | loss: 0.2280
+  Epoch  69/100 | loss: 0.2119
+  Epoch  70/100 | loss: 0.2092
+  ✔ Validation @ epoch 70: acc=0.4060
+  Epoch  71/100 | loss: 0.2077
+  Epoch  72/100 | loss: 0.2453
+  Epoch  73/100 | loss: 0.2545
+  Epoch  74/100 | loss: 0.1949
+  Epoch  75/100 | loss: 0.2451
+  Epoch  76/100 | loss: 0.3628
+  Epoch  77/100 | loss: 0.7285
+  Epoch  78/100 | loss: 0.5320
+  Epoch  79/100 | loss: 0.4743
+  Epoch  80/100 | loss: 0.3249
+  ✔ Validation @ epoch 80: acc=0.3974
+  Epoch  81/100 | loss: 0.2099
+  Epoch  82/100 | loss: 0.1758
+  Epoch  83/100 | loss: 0.1820
+  Epoch  84/100 | loss: 0.1431
+  Epoch  85/100 | loss: 0.1248
+  Epoch  86/100 | loss: 0.1085
+  Epoch  87/100 | loss: 0.1027
+  Epoch  88/100 | loss: 0.0885
+  Epoch  89/100 | loss: 0.1153
+  Epoch  90/100 | loss: 0.1066
+  ✔ Validation @ epoch 90: acc=0.4402
+  Epoch  91/100 | loss: 0.1218
+  Epoch  92/100 | loss: 0.0969
+  Epoch  93/100 | loss: 0.0907
+  Epoch  94/100 | loss: 0.0931
+  Epoch  95/100 | loss: 0.1337
+  Epoch  96/100 | loss: 0.1080
+  Epoch  97/100 | loss: 0.1301
+  Epoch  98/100 | loss: 0.1031
+  Epoch  99/100 | loss: 0.0902
+  Epoch 100/100 | loss: 0.0834
+  ✔ Validation @ epoch 100: acc=0.3974
+Found 9 unique labels: [0, 1, 2, 3, 4, 5, 6, 7, 8]
+No-activity windows (label 0): 68
+
+  Label  0 | total=   68 (train=54, valid=14) [trigger=0, baseline=68]
+  Label  1 | total=   95 (train=76, valid=19) [trigger=27, baseline=68]
+  Label  2 | total=  234 (train=187, valid=47) [trigger=166, baseline=68]
+  Label  3 | total=  225 (train=180, valid=45) [trigger=157, baseline=68]
+  Label  4 | total=  236 (train=188, valid=48) [trigger=168, baseline=68]
+  Label  5 | total=  203 (train=162, valid=41) [trigger=135, baseline=68]
+  Label  6 | total=  223 (train=178, valid=45) [trigger=155, baseline=68]
+  Label  7 | total=  203 (train=162, valid=41) [trigger=135, baseline=68]
+  Label  8 | total=  224 (train=179, valid=45) [trigger=156, baseline=68]
+
+═══════════════════════════════════════════════════════
+  Training: [trigger_0]  |  classes=1  |  train=54  valid=14
+═══════════════════════════════════════════════════════
+  Epoch   1/100 | loss: 0.0000
+  Epoch   2/100 | loss: 0.0000
+  Epoch   3/100 | loss: 0.0000
+  Epoch   4/100 | loss: 0.0000
+  Epoch   5/100 | loss: 0.0000
+  Epoch   6/100 | loss: 0.0000
+  Epoch   7/100 | loss: 0.0000
+  Epoch   8/100 | loss: 0.0000
+  Epoch   9/100 | loss: 0.0000
+  Epoch  10/100 | loss: 0.0000
+  ✔ Validation @ epoch 10: acc=1.0000
+  Epoch  11/100 | loss: 0.0000
+  Epoch  12/100 | loss: 0.0000
+  Epoch  13/100 | loss: 0.0000
+  Epoch  14/100 | loss: 0.0000
+  Epoch  15/100 | loss: 0.0000
+  Epoch  16/100 | loss: 0.0000
+  Epoch  17/100 | loss: 0.0000
+  Epoch  18/100 | loss: 0.0000
+  Epoch  19/100 | loss: 0.0000
+  Epoch  20/100 | loss: 0.0000
+  ✔ Validation @ epoch 20: acc=1.0000
+  Epoch  21/100 | loss: 0.0000
+  Epoch  22/100 | loss: 0.0000
+  Epoch  23/100 | loss: 0.0000
+  Epoch  24/100 | loss: 0.0000
+  Epoch  25/100 | loss: 0.0000
+  Epoch  26/100 | loss: 0.0000
+  Epoch  27/100 | loss: 0.0000
+  Epoch  28/100 | loss: 0.0000
+  Epoch  29/100 | loss: 0.0000
+  Epoch  30/100 | loss: 0.0000
+  ✔ Validation @ epoch 30: acc=1.0000
+  Epoch  31/100 | loss: 0.0000
+  Epoch  32/100 | loss: 0.0000
+  Epoch  33/100 | loss: 0.0000
+  Epoch  34/100 | loss: 0.0000
+  Epoch  35/100 | loss: 0.0000
+  Epoch  36/100 | loss: 0.0000
+  Epoch  37/100 | loss: 0.0000
+  Epoch  38/100 | loss: 0.0000
+  Epoch  39/100 | loss: 0.0000
+  Epoch  40/100 | loss: 0.0000
+  ✔ Validation @ epoch 40: acc=1.0000
+  Epoch  41/100 | loss: 0.0000
+  Epoch  42/100 | loss: 0.0000
+  Epoch  43/100 | loss: 0.0000
+  Epoch  44/100 | loss: 0.0000
+  Epoch  45/100 | loss: 0.0000
+  Epoch  46/100 | loss: 0.0000
+  Epoch  47/100 | loss: 0.0000
+  Epoch  48/100 | loss: 0.0000
+  Epoch  49/100 | loss: 0.0000
+  Epoch  50/100 | loss: 0.0000
+  ✔ Validation @ epoch 50: acc=1.0000
+  Epoch  51/100 | loss: 0.0000
+  Epoch  52/100 | loss: 0.0000
+  Epoch  53/100 | loss: 0.0000
+  Epoch  54/100 | loss: 0.0000
+  Epoch  55/100 | loss: 0.0000
+  Epoch  56/100 | loss: 0.0000
+  Epoch  57/100 | loss: 0.0000
+  Epoch  58/100 | loss: 0.0000
+  Epoch  59/100 | loss: 0.0000
+  Epoch  60/100 | loss: 0.0000
+  ✔ Validation @ epoch 60: acc=1.0000
+  Epoch  61/100 | loss: 0.0000
+  Epoch  62/100 | loss: 0.0000
+  Epoch  63/100 | loss: 0.0000
+  Epoch  64/100 | loss: 0.0000
+  Epoch  65/100 | loss: 0.0000
+  Epoch  66/100 | loss: 0.0000
+  Epoch  67/100 | loss: 0.0000
+  Epoch  68/100 | loss: 0.0000
+  Epoch  69/100 | loss: 0.0000
+  Epoch  70/100 | loss: 0.0000
+  ✔ Validation @ epoch 70: acc=1.0000
+  Epoch  71/100 | loss: 0.0000
+  Epoch  72/100 | loss: 0.0000
+  Epoch  73/100 | loss: 0.0000
+  Epoch  74/100 | loss: 0.0000
+  Epoch  75/100 | loss: 0.0000
+  Epoch  76/100 | loss: 0.0000
+  Epoch  77/100 | loss: 0.0000
+  Epoch  78/100 | loss: 0.0000
+  Epoch  79/100 | loss: 0.0000
+  Epoch  80/100 | loss: 0.0000
+  ✔ Validation @ epoch 80: acc=1.0000
+  Epoch  81/100 | loss: 0.0000
+  Epoch  82/100 | loss: 0.0000
+  Epoch  83/100 | loss: 0.0000
+  Epoch  84/100 | loss: 0.0000
+  Epoch  85/100 | loss: 0.0000
+  Epoch  86/100 | loss: 0.0000
+  Epoch  87/100 | loss: 0.0000
+  Epoch  88/100 | loss: 0.0000
+  Epoch  89/100 | loss: 0.0000
+  Epoch  90/100 | loss: 0.0000
+  ✔ Validation @ epoch 90: acc=1.0000
+  Epoch  91/100 | loss: 0.0000
+  Epoch  92/100 | loss: 0.0000
+  Epoch  93/100 | loss: 0.0000
+  Epoch  94/100 | loss: 0.0000
+  Epoch  95/100 | loss: 0.0000
+  Epoch  96/100 | loss: 0.0000
+  Epoch  97/100 | loss: 0.0000
+  Epoch  98/100 | loss: 0.0000
+  Epoch  99/100 | loss: 0.0000
+  Epoch 100/100 | loss: 0.0000
+  ✔ Validation @ epoch 100: acc=1.0000
+
+═══════════════════════════════════════════════════════
+  Training: [trigger_1]  |  classes=2  |  train=76  valid=19
+═══════════════════════════════════════════════════════
+  Epoch   1/100 | loss: 0.6579
+  Epoch   2/100 | loss: 0.5949
+  Epoch   3/100 | loss: 0.6152
+  Epoch   4/100 | loss: 0.5090
+  Epoch   5/100 | loss: 0.4729
+  Epoch   6/100 | loss: 0.4629
+  Epoch   7/100 | loss: 0.3753
+  Epoch   8/100 | loss: 0.3861
+  Epoch   9/100 | loss: 0.2775
+  Epoch  10/100 | loss: 0.2550
+  ✔ Validation @ epoch 10: acc=0.5789
+  Epoch  11/100 | loss: 0.2631
+  Epoch  12/100 | loss: 0.3021
+  Epoch  13/100 | loss: 0.2357
+  Epoch  14/100 | loss: 0.1795
+  Epoch  15/100 | loss: 0.2170
+  Epoch  16/100 | loss: 0.1873
+  Epoch  17/100 | loss: 0.2349
+  Epoch  18/100 | loss: 0.1800
+  Epoch  19/100 | loss: 0.1988
+  Epoch  20/100 | loss: 0.1487
+  ✔ Validation @ epoch 20: acc=0.5789
+  Epoch  21/100 | loss: 0.1672
+  Epoch  22/100 | loss: 0.1936
+  Epoch  23/100 | loss: 0.1358
+  Epoch  24/100 | loss: 0.1489
+  Epoch  25/100 | loss: 0.1493
+  Epoch  26/100 | loss: 0.0850
+  Epoch  27/100 | loss: 0.1257
+  Epoch  28/100 | loss: 0.1055
+  Epoch  29/100 | loss: 0.0920
+  Epoch  30/100 | loss: 0.1021
+  ✔ Validation @ epoch 30: acc=0.5789
+  Epoch  31/100 | loss: 0.0993
+  Epoch  32/100 | loss: 0.0753
+  Epoch  33/100 | loss: 0.0919
+  Epoch  34/100 | loss: 0.0561
+  Epoch  35/100 | loss: 0.0735
+  Epoch  36/100 | loss: 0.0550
+  Epoch  37/100 | loss: 0.0523
+  Epoch  38/100 | loss: 0.0533
+  Epoch  39/100 | loss: 0.0443
+  Epoch  40/100 | loss: 0.0631
+  ✔ Validation @ epoch 40: acc=0.5263
+  Epoch  41/100 | loss: 0.0562
+  Epoch  42/100 | loss: 0.0261
+  Epoch  43/100 | loss: 0.0466
+  Epoch  44/100 | loss: 0.0324
+  Epoch  45/100 | loss: 0.0401
+  Epoch  46/100 | loss: 0.0400
+  Epoch  47/100 | loss: 0.0379
+  Epoch  48/100 | loss: 0.0255
+  Epoch  49/100 | loss: 0.0326
+  Epoch  50/100 | loss: 0.0249
+  ✔ Validation @ epoch 50: acc=0.5263
+  Epoch  51/100 | loss: 0.0168
+  Epoch  52/100 | loss: 0.0193
+  Epoch  53/100 | loss: 0.0148
+  Epoch  54/100 | loss: 0.0133
+  Epoch  55/100 | loss: 0.0221
+  Epoch  56/100 | loss: 0.0111
+  Epoch  57/100 | loss: 0.0141
+  Epoch  58/100 | loss: 0.0178
+  Epoch  59/100 | loss: 0.0073
+  Epoch  60/100 | loss: 0.0188
+  ✔ Validation @ epoch 60: acc=0.5263
+  Epoch  61/100 | loss: 0.0076
+  Epoch  62/100 | loss: 0.0678
+  Epoch  63/100 | loss: 0.0205
+  Epoch  64/100 | loss: 0.0937
+  Epoch  65/100 | loss: 0.0167
+  Epoch  66/100 | loss: 0.1833
+  Epoch  67/100 | loss: 0.0264
+  Epoch  68/100 | loss: 0.1501
+  Epoch  69/100 | loss: 0.1841
+  Epoch  70/100 | loss: 0.0264
+  ✔ Validation @ epoch 70: acc=0.5263
+  Epoch  71/100 | loss: 0.1812
+  Epoch  72/100 | loss: 0.0428
+  Epoch  73/100 | loss: 0.0552
+  Epoch  74/100 | loss: 0.0475
+  Epoch  75/100 | loss: 0.0177
+  Epoch  76/100 | loss: 0.0230
+  Epoch  77/100 | loss: 0.0253
+  Epoch  78/100 | loss: 0.0196
+  Epoch  79/100 | loss: 0.0155
+  Epoch  80/100 | loss: 0.0138
+  ✔ Validation @ epoch 80: acc=0.5263
+  Epoch  81/100 | loss: 0.0135
+  Epoch  82/100 | loss: 0.0094
+  Epoch  83/100 | loss: 0.0071
+  Epoch  84/100 | loss: 0.0068
+  Epoch  85/100 | loss: 0.0070
+  Epoch  86/100 | loss: 0.0078
+  Epoch  87/100 | loss: 0.0069
+  Epoch  88/100 | loss: 0.0055
+  Epoch  89/100 | loss: 0.0057
+  Epoch  90/100 | loss: 0.0059
+  ✔ Validation @ epoch 90: acc=0.5263
+  Epoch  91/100 | loss: 0.0063
+  Epoch  92/100 | loss: 0.0056
+  Epoch  93/100 | loss: 0.0059
+  Epoch  94/100 | loss: 0.0039
+  Epoch  95/100 | loss: 0.0051
+  Epoch  96/100 | loss: 0.0034
+  Epoch  97/100 | loss: 0.0065
+  Epoch  98/100 | loss: 0.0051
+  Epoch  99/100 | loss: 0.0031
+  Epoch 100/100 | loss: 0.0036
+  ✔ Validation @ epoch 100: acc=0.5263
+
+═══════════════════════════════════════════════════════
+  Training: [trigger_2]  |  classes=3  |  train=187  valid=47
+═══════════════════════════════════════════════════════
+  Epoch   1/100 | loss: 0.9350
+  Epoch   2/100 | loss: 0.7191
+  Epoch   3/100 | loss: 0.6287
+  Epoch   4/100 | loss: 0.5625
+  Epoch   5/100 | loss: 0.5478
+  Epoch   6/100 | loss: 0.5330
+  Epoch   7/100 | loss: 0.4812
+  Epoch   8/100 | loss: 0.4600
+  Epoch   9/100 | loss: 0.4293
+  Epoch  10/100 | loss: 0.3898
+  ✔ Validation @ epoch 10: acc=0.8298
+  Epoch  11/100 | loss: 0.3494
+  Epoch  12/100 | loss: 0.3391
+  Epoch  13/100 | loss: 0.3110
+  Epoch  14/100 | loss: 0.3383
+  Epoch  15/100 | loss: 0.3261
+  Epoch  16/100 | loss: 0.2811
+  Epoch  17/100 | loss: 0.2417
+  Epoch  18/100 | loss: 0.2211
+  Epoch  19/100 | loss: 0.2040
+  Epoch  20/100 | loss: 0.2044
+  ✔ Validation @ epoch 20: acc=0.8511
+  Epoch  21/100 | loss: 0.1817
+  Epoch  22/100 | loss: 0.1814
+  Epoch  23/100 | loss: 0.1753
+  Epoch  24/100 | loss: 0.1757
+  Epoch  25/100 | loss: 0.1600
+  Epoch  26/100 | loss: 0.1435
+  Epoch  27/100 | loss: 0.1459
+  Epoch  28/100 | loss: 0.1354
+  Epoch  29/100 | loss: 0.1278
+  Epoch  30/100 | loss: 0.1108
+  ✔ Validation @ epoch 30: acc=0.8723
+  Epoch  31/100 | loss: 0.1153
+  Epoch  32/100 | loss: 0.1005
+  Epoch  33/100 | loss: 0.1007
+  Epoch  34/100 | loss: 0.1072
+  Epoch  35/100 | loss: 0.1042
+  Epoch  36/100 | loss: 0.1121
+  Epoch  37/100 | loss: 0.0830
+  Epoch  38/100 | loss: 0.0794
+  Epoch  39/100 | loss: 0.0726
+  Epoch  40/100 | loss: 0.0902
+  ✔ Validation @ epoch 40: acc=0.8298
+  Epoch  41/100 | loss: 0.0766
+  Epoch  42/100 | loss: 0.0574
+  Epoch  43/100 | loss: 0.0516
+  Epoch  44/100 | loss: 0.0477
+  Epoch  45/100 | loss: 0.0473
+  Epoch  46/100 | loss: 0.0405
+  Epoch  47/100 | loss: 0.0424
+  Epoch  48/100 | loss: 0.0364
+  Epoch  49/100 | loss: 0.0330
+  Epoch  50/100 | loss: 0.0350
+  ✔ Validation @ epoch 50: acc=0.8085
+  Epoch  51/100 | loss: 0.0375
+  Epoch  52/100 | loss: 0.0439
+  Epoch  53/100 | loss: 0.0521
+  Epoch  54/100 | loss: 0.1211
+  Epoch  55/100 | loss: 0.0884
+  Epoch  56/100 | loss: 0.2026
+  Epoch  57/100 | loss: 0.1868
+  Epoch  58/100 | loss: 0.0938
+  Epoch  59/100 | loss: 0.0864
+  Epoch  60/100 | loss: 0.0612
+  ✔ Validation @ epoch 60: acc=0.8723
+  Epoch  61/100 | loss: 0.0515
+  Epoch  62/100 | loss: 0.0421
+  Epoch  63/100 | loss: 0.0314
+  Epoch  64/100 | loss: 0.0279
+  Epoch  65/100 | loss: 0.0260
+  Epoch  66/100 | loss: 0.0234
+  Epoch  67/100 | loss: 0.0211
+  Epoch  68/100 | loss: 0.0198
+  Epoch  69/100 | loss: 0.0176
+  Epoch  70/100 | loss: 0.0161
+  ✔ Validation @ epoch 70: acc=0.8298
+  Epoch  71/100 | loss: 0.0163
+  Epoch  72/100 | loss: 0.0150
+  Epoch  73/100 | loss: 0.0140
+  Epoch  74/100 | loss: 0.0129
+  Epoch  75/100 | loss: 0.0125
+  Epoch  76/100 | loss: 0.0131
+  Epoch  77/100 | loss: 0.0127
+  Epoch  78/100 | loss: 0.0110
+  Epoch  79/100 | loss: 0.0114
+  Epoch  80/100 | loss: 0.0097
+  ✔ Validation @ epoch 80: acc=0.7872
+  Epoch  81/100 | loss: 0.0109
+  Epoch  82/100 | loss: 0.0098
+  Epoch  83/100 | loss: 0.0092
+  Epoch  84/100 | loss: 0.0085
+  Epoch  85/100 | loss: 0.0146
+  Epoch  86/100 | loss: 0.0086
+  Epoch  87/100 | loss: 0.0115
+  Epoch  88/100 | loss: 0.0170
+  Epoch  89/100 | loss: 0.0204
+  Epoch  90/100 | loss: 0.0072
+  ✔ Validation @ epoch 90: acc=0.7872
+  Epoch  91/100 | loss: 0.0266
+  Epoch  92/100 | loss: 0.0152
+  Epoch  93/100 | loss: 0.0095
+  Epoch  94/100 | loss: 0.0213
+  Epoch  95/100 | loss: 0.0225
+  Epoch  96/100 | loss: 0.0184
+  Epoch  97/100 | loss: 0.0417
+  Epoch  98/100 | loss: 0.0158
+  Epoch  99/100 | loss: 0.0302
+  Epoch 100/100 | loss: 0.0152
+  ✔ Validation @ epoch 100: acc=0.8511
+
+═══════════════════════════════════════════════════════
+  Training: [trigger_3]  |  classes=4  |  train=180  valid=45
+═══════════════════════════════════════════════════════
+  Epoch   1/100 | loss: 1.1148
+  Epoch   2/100 | loss: 0.7182
+  Epoch   3/100 | loss: 0.5681
+  Epoch   4/100 | loss: 0.5270
+  Epoch   5/100 | loss: 0.5389
+  Epoch   6/100 | loss: 0.5331
+  Epoch   7/100 | loss: 0.5338
+  Epoch   8/100 | loss: 0.4888
+  Epoch   9/100 | loss: 0.4502
+  Epoch  10/100 | loss: 0.4243
+  ✔ Validation @ epoch 10: acc=0.6667
+  Epoch  11/100 | loss: 0.4194
+  Epoch  12/100 | loss: 0.4002
+  Epoch  13/100 | loss: 0.3606
+  Epoch  14/100 | loss: 0.3595
+  Epoch  15/100 | loss: 0.3611
+  Epoch  16/100 | loss: 0.3293
+  Epoch  17/100 | loss: 0.3134
+  Epoch  18/100 | loss: 0.2930
+  Epoch  19/100 | loss: 0.2796
+  Epoch  20/100 | loss: 0.2744
+  ✔ Validation @ epoch 20: acc=0.8000
+  Epoch  21/100 | loss: 0.2919
+  Epoch  22/100 | loss: 0.2762
+  Epoch  23/100 | loss: 0.2317
+  Epoch  24/100 | loss: 0.2418
+  Epoch  25/100 | loss: 0.2237
+  Epoch  26/100 | loss: 0.1878
+  Epoch  27/100 | loss: 0.1926
+  Epoch  28/100 | loss: 0.1820
+  Epoch  29/100 | loss: 0.1611
+  Epoch  30/100 | loss: 0.1571
+  ✔ Validation @ epoch 30: acc=0.7333
+  Epoch  31/100 | loss: 0.1600
+  Epoch  32/100 | loss: 0.1708
+  Epoch  33/100 | loss: 0.1583
+  Epoch  34/100 | loss: 0.1577
+  Epoch  35/100 | loss: 0.1463
+  Epoch  36/100 | loss: 0.1106
+  Epoch  37/100 | loss: 0.1259
+  Epoch  38/100 | loss: 0.1122
+  Epoch  39/100 | loss: 0.1078
+  Epoch  40/100 | loss: 0.0942
+  ✔ Validation @ epoch 40: acc=0.7778
+  Epoch  41/100 | loss: 0.0815
+  Epoch  42/100 | loss: 0.0817
+  Epoch  43/100 | loss: 0.0666
+  Epoch  44/100 | loss: 0.0780
+  Epoch  45/100 | loss: 0.0907
+  Epoch  46/100 | loss: 0.0825
+  Epoch  47/100 | loss: 0.1419
+  Epoch  48/100 | loss: 0.0933
+  Epoch  49/100 | loss: 0.0786
+  Epoch  50/100 | loss: 0.0572
+  ✔ Validation @ epoch 50: acc=0.8000
+  Epoch  51/100 | loss: 0.0585
+  Epoch  52/100 | loss: 0.0592
+  Epoch  53/100 | loss: 0.0392
+  Epoch  54/100 | loss: 0.0448
+  Epoch  55/100 | loss: 0.0411
+  Epoch  56/100 | loss: 0.0386
+  Epoch  57/100 | loss: 0.0356
+  Epoch  58/100 | loss: 0.0305
+  Epoch  59/100 | loss: 0.0239
+  Epoch  60/100 | loss: 0.0231
+  ✔ Validation @ epoch 60: acc=0.7778
+  Epoch  61/100 | loss: 0.0208
+  Epoch  62/100 | loss: 0.0176
+  Epoch  63/100 | loss: 0.0193
+  Epoch  64/100 | loss: 0.0170
+  Epoch  65/100 | loss: 0.0163
+  Epoch  66/100 | loss: 0.0161
+  Epoch  67/100 | loss: 0.0141
+  Epoch  68/100 | loss: 0.0162
+  Epoch  69/100 | loss: 0.0147
+  Epoch  70/100 | loss: 0.0168
+  ✔ Validation @ epoch 70: acc=0.8000
+  Epoch  71/100 | loss: 0.0153
+  Epoch  72/100 | loss: 0.0155
+  Epoch  73/100 | loss: 0.0183
+  Epoch  74/100 | loss: 0.0241
+  Epoch  75/100 | loss: 0.0612
+  Epoch  76/100 | loss: 0.0547
+  Epoch  77/100 | loss: 0.1262
+  Epoch  78/100 | loss: 0.0717
+  Epoch  79/100 | loss: 0.0917
+  Epoch  80/100 | loss: 0.0227
+  ✔ Validation @ epoch 80: acc=0.7556
+  Epoch  81/100 | loss: 0.0326
+  Epoch  82/100 | loss: 0.0262
+  Epoch  83/100 | loss: 0.0188
+  Epoch  84/100 | loss: 0.0192
+  Epoch  85/100 | loss: 0.0142
+  Epoch  86/100 | loss: 0.0109
+  Epoch  87/100 | loss: 0.0096
+  Epoch  88/100 | loss: 0.0076
+  Epoch  89/100 | loss: 0.0085
+  Epoch  90/100 | loss: 0.0066
+  ✔ Validation @ epoch 90: acc=0.8000
+  Epoch  91/100 | loss: 0.0070
+  Epoch  92/100 | loss: 0.0056
+  Epoch  93/100 | loss: 0.0052
+  Epoch  94/100 | loss: 0.0050
+  Epoch  95/100 | loss: 0.0054
+  Epoch  96/100 | loss: 0.0044
+  Epoch  97/100 | loss: 0.0048
+  Epoch  98/100 | loss: 0.0046
+  Epoch  99/100 | loss: 0.0042
+  Epoch 100/100 | loss: 0.0040
+  ✔ Validation @ epoch 100: acc=0.8000
+
+═══════════════════════════════════════════════════════
+  Training: [trigger_4]  |  classes=5  |  train=188  valid=48
+═══════════════════════════════════════════════════════
+  Epoch   1/100 | loss: 1.2929
+  Epoch   2/100 | loss: 0.7312
+  Epoch   3/100 | loss: 0.5469
+  Epoch   4/100 | loss: 0.4999
+  Epoch   5/100 | loss: 0.4461
+  Epoch   6/100 | loss: 0.4138
+  Epoch   7/100 | loss: 0.3994
+  Epoch   8/100 | loss: 0.4248
+  Epoch   9/100 | loss: 0.3873
+  Epoch  10/100 | loss: 0.3550
+  ✔ Validation @ epoch 10: acc=0.8125
+  Epoch  11/100 | loss: 0.3444
+  Epoch  12/100 | loss: 0.3113
+  Epoch  13/100 | loss: 0.2907
+  Epoch  14/100 | loss: 0.2802
+  Epoch  15/100 | loss: 0.2622
+  Epoch  16/100 | loss: 0.2443
+  Epoch  17/100 | loss: 0.2188
+  Epoch  18/100 | loss: 0.2161
+  Epoch  19/100 | loss: 0.1936
+  Epoch  20/100 | loss: 0.1909
+  ✔ Validation @ epoch 20: acc=0.8333
+  Epoch  21/100 | loss: 0.1834
+  Epoch  22/100 | loss: 0.1981
+  Epoch  23/100 | loss: 0.2300
+  Epoch  24/100 | loss: 0.1996
+  Epoch  25/100 | loss: 0.1684
+  Epoch  26/100 | loss: 0.1660
+  Epoch  27/100 | loss: 0.1418
+  Epoch  28/100 | loss: 0.1353
+  Epoch  29/100 | loss: 0.1293
+  Epoch  30/100 | loss: 0.1190
+  ✔ Validation @ epoch 30: acc=0.8125
+  Epoch  31/100 | loss: 0.1127
+  Epoch  32/100 | loss: 0.0976
+  Epoch  33/100 | loss: 0.1004
+  Epoch  34/100 | loss: 0.0951
+  Epoch  35/100 | loss: 0.0914
+  Epoch  36/100 | loss: 0.0745
+  Epoch  37/100 | loss: 0.0856
+  Epoch  38/100 | loss: 0.0900
+  Epoch  39/100 | loss: 0.0816
+  Epoch  40/100 | loss: 0.0664
+  ✔ Validation @ epoch 40: acc=0.7917
+  Epoch  41/100 | loss: 0.0915
+  Epoch  42/100 | loss: 0.1036
+  Epoch  43/100 | loss: 0.1019
+  Epoch  44/100 | loss: 0.0660
+  Epoch  45/100 | loss: 0.0579
+  Epoch  46/100 | loss: 0.0556
+  Epoch  47/100 | loss: 0.0524
+  Epoch  48/100 | loss: 0.0463
+  Epoch  49/100 | loss: 0.0445
+  Epoch  50/100 | loss: 0.0447
+  ✔ Validation @ epoch 50: acc=0.7917
+  Epoch  51/100 | loss: 0.0369
+  Epoch  52/100 | loss: 0.0370
+  Epoch  53/100 | loss: 0.0327
+  Epoch  54/100 | loss: 0.0316
+  Epoch  55/100 | loss: 0.0323
+  Epoch  56/100 | loss: 0.0275
+  Epoch  57/100 | loss: 0.0272
+  Epoch  58/100 | loss: 0.0242
+  Epoch  59/100 | loss: 0.0257
+  Epoch  60/100 | loss: 0.0220
+  ✔ Validation @ epoch 60: acc=0.7917
+  Epoch  61/100 | loss: 0.0223
+  Epoch  62/100 | loss: 0.0209
+  Epoch  63/100 | loss: 0.0214
+  Epoch  64/100 | loss: 0.0186
+  Epoch  65/100 | loss: 0.0181
+  Epoch  66/100 | loss: 0.0175
+  Epoch  67/100 | loss: 0.0191
+  Epoch  68/100 | loss: 0.0180
+  Epoch  69/100 | loss: 0.0139
+  Epoch  70/100 | loss: 0.0148
+  ✔ Validation @ epoch 70: acc=0.7917
+  Epoch  71/100 | loss: 0.0122
+  Epoch  72/100 | loss: 0.0116
+  Epoch  73/100 | loss: 0.0122
+  Epoch  74/100 | loss: 0.0085
+  Epoch  75/100 | loss: 0.0120
+  Epoch  76/100 | loss: 0.0104
+  Epoch  77/100 | loss: 0.0069
+  Epoch  78/100 | loss: 0.0164
+  Epoch  79/100 | loss: 0.0125
+  Epoch  80/100 | loss: 0.0141
+  ✔ Validation @ epoch 80: acc=0.7917
+  Epoch  81/100 | loss: 0.0107
+  Epoch  82/100 | loss: 0.0085
+  Epoch  83/100 | loss: 0.0089
+  Epoch  84/100 | loss: 0.0213
+  Epoch  85/100 | loss: 0.0384
+  Epoch  86/100 | loss: 0.0305
+  Epoch  87/100 | loss: 0.1233
+  Epoch  88/100 | loss: 0.1263
+  Epoch  89/100 | loss: 0.0440
+  Epoch  90/100 | loss: 0.0347
+  ✔ Validation @ epoch 90: acc=0.7917
+  Epoch  91/100 | loss: 0.0660
+  Epoch  92/100 | loss: 0.1145
+  Epoch  93/100 | loss: 0.0261
+  Epoch  94/100 | loss: 0.0502
+  Epoch  95/100 | loss: 0.0521
+  Epoch  96/100 | loss: 0.0758
+  Epoch  97/100 | loss: 0.0402
+  Epoch  98/100 | loss: 0.0289
+  Epoch  99/100 | loss: 0.0145
+  Epoch 100/100 | loss: 0.0192
+  ✔ Validation @ epoch 100: acc=0.7708
+
+═══════════════════════════════════════════════════════
+  Training: [trigger_5]  |  classes=6  |  train=162  valid=41
+═══════════════════════════════════════════════════════
+  Epoch   1/100 | loss: 1.5484
+  Epoch   2/100 | loss: 0.7733
+  Epoch   3/100 | loss: 0.6603
+  Epoch   4/100 | loss: 0.5732
+  Epoch   5/100 | loss: 0.6768
+  Epoch   6/100 | loss: 0.6271
+  Epoch   7/100 | loss: 0.6421
+  Epoch   8/100 | loss: 0.6158
+  Epoch   9/100 | loss: 0.5930
+  Epoch  10/100 | loss: 0.5163
+  ✔ Validation @ epoch 10: acc=0.6585
+  Epoch  11/100 | loss: 0.5164
+  Epoch  12/100 | loss: 0.6885
+  Epoch  13/100 | loss: 0.5140
+  Epoch  14/100 | loss: 0.4643
+  Epoch  15/100 | loss: 0.5299
+  Epoch  16/100 | loss: 0.4502
+  Epoch  17/100 | loss: 0.3650
+  Epoch  18/100 | loss: 0.3655
+  Epoch  19/100 | loss: 0.3778
+  Epoch  20/100 | loss: 0.4313
+  ✔ Validation @ epoch 20: acc=0.8780
+  Epoch  21/100 | loss: 0.2879
+  Epoch  22/100 | loss: 0.3318
+  Epoch  23/100 | loss: 0.3484
+  Epoch  24/100 | loss: 0.2840
+  Epoch  25/100 | loss: 0.2915
+  Epoch  26/100 | loss: 0.2936
+  Epoch  27/100 | loss: 0.2482
+  Epoch  28/100 | loss: 0.2012
+  Epoch  29/100 | loss: 0.1880
+  Epoch  30/100 | loss: 0.1742
+  ✔ Validation @ epoch 30: acc=0.8780
+  Epoch  31/100 | loss: 0.1538
+  Epoch  32/100 | loss: 0.1715
+  Epoch  33/100 | loss: 0.1730
+  Epoch  34/100 | loss: 0.1397
+  Epoch  35/100 | loss: 0.1188
+  Epoch  36/100 | loss: 0.1333
+  Epoch  37/100 | loss: 0.1570
+  Epoch  38/100 | loss: 0.2024
+  Epoch  39/100 | loss: 0.2131
+  Epoch  40/100 | loss: 0.1280
+  ✔ Validation @ epoch 40: acc=0.8780
+  Epoch  41/100 | loss: 0.1287
+  Epoch  42/100 | loss: 0.1031
+  Epoch  43/100 | loss: 0.1403
+  Epoch  44/100 | loss: 0.2272
+  Epoch  45/100 | loss: 0.2687
+  Epoch  46/100 | loss: 0.3288
+  Epoch  47/100 | loss: 0.2528
+  Epoch  48/100 | loss: 0.2243
+  Epoch  49/100 | loss: 0.2102
+  Epoch  50/100 | loss: 0.1333
+  ✔ Validation @ epoch 50: acc=0.8780
+  Epoch  51/100 | loss: 0.1195
+  Epoch  52/100 | loss: 0.1764
+  Epoch  53/100 | loss: 0.0938
+  Epoch  54/100 | loss: 0.1521
+  Epoch  55/100 | loss: 0.0922
+  Epoch  56/100 | loss: 0.0897
+  Epoch  57/100 | loss: 0.1021
+  Epoch  58/100 | loss: 0.0765
+  Epoch  59/100 | loss: 0.0790
+  Epoch  60/100 | loss: 0.1340
+  ✔ Validation @ epoch 60: acc=0.8780
+  Epoch  61/100 | loss: 0.0975
+  Epoch  62/100 | loss: 0.1007
+  Epoch  63/100 | loss: 0.0791
+  Epoch  64/100 | loss: 0.0677
+  Epoch  65/100 | loss: 0.0559
+  Epoch  66/100 | loss: 0.0569
+  Epoch  67/100 | loss: 0.0526
+  Epoch  68/100 | loss: 0.0470
+  Epoch  69/100 | loss: 0.0507
+  Epoch  70/100 | loss: 0.0468
+  ✔ Validation @ epoch 70: acc=0.8780
+  Epoch  71/100 | loss: 0.1136
+  Epoch  72/100 | loss: 0.2184
+  Epoch  73/100 | loss: 0.2784
+  Epoch  74/100 | loss: 0.1782
+  Epoch  75/100 | loss: 0.1621
+  Epoch  76/100 | loss: 0.1380
+  Epoch  77/100 | loss: 0.1049
+  Epoch  78/100 | loss: 0.0887
+  Epoch  79/100 | loss: 0.0628
+  Epoch  80/100 | loss: 0.0642
+  ✔ Validation @ epoch 80: acc=0.8780
+  Epoch  81/100 | loss: 0.0563
+  Epoch  82/100 | loss: 0.0522
+  Epoch  83/100 | loss: 0.0476
+  Epoch  84/100 | loss: 0.0417
+  Epoch  85/100 | loss: 0.0394
+  Epoch  86/100 | loss: 0.0386
+  Epoch  87/100 | loss: 0.0476
+  Epoch  88/100 | loss: 0.0656
+  Epoch  89/100 | loss: 0.0549
+  Epoch  90/100 | loss: 0.0493
+  ✔ Validation @ epoch 90: acc=0.8780
+  Epoch  91/100 | loss: 0.0525
+  Epoch  92/100 | loss: 0.0453
+  Epoch  93/100 | loss: 0.0361
+  Epoch  94/100 | loss: 0.0306
+  Epoch  95/100 | loss: 0.0309
+  Epoch  96/100 | loss: 0.0262
+  Epoch  97/100 | loss: 0.0295
+  Epoch  98/100 | loss: 0.0252
+  Epoch  99/100 | loss: 0.0213
+  Epoch 100/100 | loss: 0.0216
+  ✔ Validation @ epoch 100: acc=0.8780
+
+═══════════════════════════════════════════════════════
+  Training: [trigger_6]  |  classes=7  |  train=178  valid=45
+═══════════════════════════════════════════════════════
+  Epoch   1/100 | loss: 1.6072
+  Epoch   2/100 | loss: 0.8165
+  Epoch   3/100 | loss: 0.6039
+  Epoch   4/100 | loss: 0.5352
+  Epoch   5/100 | loss: 0.5473
+  Epoch   6/100 | loss: 0.5140
+  Epoch   7/100 | loss: 0.4646
+  Epoch   8/100 | loss: 0.4233
+  Epoch   9/100 | loss: 0.4139
+  Epoch  10/100 | loss: 0.3331
+  ✔ Validation @ epoch 10: acc=0.7111
+  Epoch  11/100 | loss: 0.3379
+  Epoch  12/100 | loss: 0.2920
+  Epoch  13/100 | loss: 0.3676
+  Epoch  14/100 | loss: 0.3105
+  Epoch  15/100 | loss: 0.2853
+  Epoch  16/100 | loss: 0.2159
+  Epoch  17/100 | loss: 0.2047
+  Epoch  18/100 | loss: 0.1844
+  Epoch  19/100 | loss: 0.1878
+  Epoch  20/100 | loss: 0.1722
+  ✔ Validation @ epoch 20: acc=0.8000
+  Epoch  21/100 | loss: 0.1432
+  Epoch  22/100 | loss: 0.1508
+  Epoch  23/100 | loss: 0.1494
+  Epoch  24/100 | loss: 0.1294
+  Epoch  25/100 | loss: 0.1192
+  Epoch  26/100 | loss: 0.1142
+  Epoch  27/100 | loss: 0.0929
+  Epoch  28/100 | loss: 0.0955
+  Epoch  29/100 | loss: 0.0940
+  Epoch  30/100 | loss: 0.0772
+  ✔ Validation @ epoch 30: acc=0.8222
+  Epoch  31/100 | loss: 0.0607
+  Epoch  32/100 | loss: 0.0665
+  Epoch  33/100 | loss: 0.0518
+  Epoch  34/100 | loss: 0.0531
+  Epoch  35/100 | loss: 0.0450
+  Epoch  36/100 | loss: 0.0346
+  Epoch  37/100 | loss: 0.0307
+  Epoch  38/100 | loss: 0.0266
+  Epoch  39/100 | loss: 0.0278
+  Epoch  40/100 | loss: 0.0469
+  ✔ Validation @ epoch 40: acc=0.8222
+  Epoch  41/100 | loss: 0.0607
+  Epoch  42/100 | loss: 0.0822
+  Epoch  43/100 | loss: 0.1197
+  Epoch  44/100 | loss: 0.1441
+  Epoch  45/100 | loss: 0.1270
+  Epoch  46/100 | loss: 0.0707
+  Epoch  47/100 | loss: 0.0641
+  Epoch  48/100 | loss: 0.1104
+  Epoch  49/100 | loss: 0.0709
+  Epoch  50/100 | loss: 0.0693
+  ✔ Validation @ epoch 50: acc=0.8000
+  Epoch  51/100 | loss: 0.0655
+  Epoch  52/100 | loss: 0.0239
+  Epoch  53/100 | loss: 0.0256
+  Epoch  54/100 | loss: 0.0180
+  Epoch  55/100 | loss: 0.0112
+  Epoch  56/100 | loss: 0.0122
+  Epoch  57/100 | loss: 0.0102
+  Epoch  58/100 | loss: 0.0107
+  Epoch  59/100 | loss: 0.0075
+  Epoch  60/100 | loss: 0.0069
+  ✔ Validation @ epoch 60: acc=0.8000
+  Epoch  61/100 | loss: 0.0063
+  Epoch  62/100 | loss: 0.0061
+  Epoch  63/100 | loss: 0.0054
+  Epoch  64/100 | loss: 0.0052
+  Epoch  65/100 | loss: 0.0046
+  Epoch  66/100 | loss: 0.0042
+  Epoch  67/100 | loss: 0.0039
+  Epoch  68/100 | loss: 0.0037
+  Epoch  69/100 | loss: 0.0031
+  Epoch  70/100 | loss: 0.0031
+  ✔ Validation @ epoch 70: acc=0.8000
+  Epoch  71/100 | loss: 0.0029
+  Epoch  72/100 | loss: 0.0027
+  Epoch  73/100 | loss: 0.0025
+  Epoch  74/100 | loss: 0.0024
+  Epoch  75/100 | loss: 0.0022
+  Epoch  76/100 | loss: 0.0020
+  Epoch  77/100 | loss: 0.0018
+  Epoch  78/100 | loss: 0.0019
+  Epoch  79/100 | loss: 0.0016
+  Epoch  80/100 | loss: 0.0017
+  ✔ Validation @ epoch 80: acc=0.8000
+  Epoch  81/100 | loss: 0.0014
+  Epoch  82/100 | loss: 0.0013
+  Epoch  83/100 | loss: 0.0012
+  Epoch  84/100 | loss: 0.0012
+  Epoch  85/100 | loss: 0.0010
+  Epoch  86/100 | loss: 0.0009
+  Epoch  87/100 | loss: 0.0009
+  Epoch  88/100 | loss: 0.0008
+  Epoch  89/100 | loss: 0.0008
+  Epoch  90/100 | loss: 0.0007
+  ✔ Validation @ epoch 90: acc=0.8000
+  Epoch  91/100 | loss: 0.0007
+  Epoch  92/100 | loss: 0.0007
+  Epoch  93/100 | loss: 0.0007
+  Epoch  94/100 | loss: 0.0006
+  Epoch  95/100 | loss: 0.0006
+  Epoch  96/100 | loss: 0.0005
+  Epoch  97/100 | loss: 0.0005
+  Epoch  98/100 | loss: 0.0005
+  Epoch  99/100 | loss: 0.0005
+  Epoch 100/100 | loss: 0.0005
+  ✔ Validation @ epoch 100: acc=0.8000
+
+═══════════════════════════════════════════════════════
+  Training: [trigger_7]  |  classes=8  |  train=162  valid=41
+═══════════════════════════════════════════════════════
+  Epoch   1/100 | loss: 1.7102
+  Epoch   2/100 | loss: 1.0243
+  Epoch   3/100 | loss: 0.6616
+  Epoch   4/100 | loss: 0.6005
+  Epoch   5/100 | loss: 0.5504
+  Epoch   6/100 | loss: 0.6841
+  Epoch   7/100 | loss: 0.4747
+  Epoch   8/100 | loss: 0.4946
+  Epoch   9/100 | loss: 0.4758
+  Epoch  10/100 | loss: 0.4360
+  ✔ Validation @ epoch 10: acc=0.7317
+  Epoch  11/100 | loss: 0.3386
+  Epoch  12/100 | loss: 0.3540
+  Epoch  13/100 | loss: 0.4196
+  Epoch  14/100 | loss: 0.4084
+  Epoch  15/100 | loss: 0.3659
+  Epoch  16/100 | loss: 0.3005
+  Epoch  17/100 | loss: 0.3116
+  Epoch  18/100 | loss: 0.2580
+  Epoch  19/100 | loss: 0.2473
+  Epoch  20/100 | loss: 0.3552
+  ✔ Validation @ epoch 20: acc=0.6585
+  Epoch  21/100 | loss: 0.2072
+  Epoch  22/100 | loss: 0.2939
+  Epoch  23/100 | loss: 0.2136
+  Epoch  24/100 | loss: 0.2345
+  Epoch  25/100 | loss: 0.2060
+  Epoch  26/100 | loss: 0.2539
+  Epoch  27/100 | loss: 0.2194
+  Epoch  28/100 | loss: 0.1756
+  Epoch  29/100 | loss: 0.1652
+  Epoch  30/100 | loss: 0.2638
+  ✔ Validation @ epoch 30: acc=0.7317
+  Epoch  31/100 | loss: 0.2287
+  Epoch  32/100 | loss: 0.3376
+  Epoch  33/100 | loss: 0.1750
+  Epoch  34/100 | loss: 0.2142
+  Epoch  35/100 | loss: 0.1776
+  Epoch  36/100 | loss: 0.1726
+  Epoch  37/100 | loss: 0.1719
+  Epoch  38/100 | loss: 0.1445
+  Epoch  39/100 | loss: 0.1265
+  Epoch  40/100 | loss: 0.1319
+  ✔ Validation @ epoch 40: acc=0.7317
+  Epoch  41/100 | loss: 0.1272
+  Epoch  42/100 | loss: 0.1167
+  Epoch  43/100 | loss: 0.1115
+  Epoch  44/100 | loss: 0.1950
+  Epoch  45/100 | loss: 0.1152
+  Epoch  46/100 | loss: 0.1343
+  Epoch  47/100 | loss: 0.1763
+  Epoch  48/100 | loss: 0.1278
+  Epoch  49/100 | loss: 0.1157
+  Epoch  50/100 | loss: 0.2666
+  ✔ Validation @ epoch 50: acc=0.7561
+  Epoch  51/100 | loss: 0.3046
+  Epoch  52/100 | loss: 0.2598
+  Epoch  53/100 | loss: 0.1544
+  Epoch  54/100 | loss: 0.1844
+  Epoch  55/100 | loss: 0.1619
+  Epoch  56/100 | loss: 0.1449
+  Epoch  57/100 | loss: 0.1480
+  Epoch  58/100 | loss: 0.1218
+  Epoch  59/100 | loss: 0.1146
+  Epoch  60/100 | loss: 0.0993
+  ✔ Validation @ epoch 60: acc=0.6829
+  Epoch  61/100 | loss: 0.0920
+  Epoch  62/100 | loss: 0.1029
+  Epoch  63/100 | loss: 0.0916
+  Epoch  64/100 | loss: 0.0782
+  Epoch  65/100 | loss: 0.0773
+  Epoch  66/100 | loss: 0.0707
+  Epoch  67/100 | loss: 0.0933
+  Epoch  68/100 | loss: 0.0659
+  Epoch  69/100 | loss: 0.0692
+  Epoch  70/100 | loss: 0.1164
+  ✔ Validation @ epoch 70: acc=0.6829
+  Epoch  71/100 | loss: 0.1077
+  Epoch  72/100 | loss: 0.0667
+  Epoch  73/100 | loss: 0.0959
+  Epoch  74/100 | loss: 0.0948
+  Epoch  75/100 | loss: 0.0957
+  Epoch  76/100 | loss: 0.0764
+  Epoch  77/100 | loss: 0.0623
+  Epoch  78/100 | loss: 0.0572
+  Epoch  79/100 | loss: 0.0556
+  Epoch  80/100 | loss: 0.0617
+  ✔ Validation @ epoch 80: acc=0.7317
+  Epoch  81/100 | loss: 0.0429
+  Epoch  82/100 | loss: 0.0484
+  Epoch  83/100 | loss: 0.0446
+  Epoch  84/100 | loss: 0.0377
+  Epoch  85/100 | loss: 0.0417
+  Epoch  86/100 | loss: 0.0361
+  Epoch  87/100 | loss: 0.0346
+  Epoch  88/100 | loss: 0.0342
+  Epoch  89/100 | loss: 0.0342
+  Epoch  90/100 | loss: 0.0331
+  ✔ Validation @ epoch 90: acc=0.6829
+  Epoch  91/100 | loss: 0.0315
+  Epoch  92/100 | loss: 0.0292
+  Epoch  93/100 | loss: 0.0296
+  Epoch  94/100 | loss: 0.0279
+  Epoch  95/100 | loss: 0.0265
+  Epoch  96/100 | loss: 0.0250
+  Epoch  97/100 | loss: 0.0237
+  Epoch  98/100 | loss: 0.0473
+  Epoch  99/100 | loss: 0.1632
+  Epoch 100/100 | loss: 0.0450
+  ✔ Validation @ epoch 100: acc=0.7317
+
+═══════════════════════════════════════════════════════
+  Training: [trigger_8]  |  classes=9  |  train=179  valid=45
+═══════════════════════════════════════════════════════
+  Epoch   1/100 | loss: 1.9422
+  Epoch   2/100 | loss: 0.9833
+  Epoch   3/100 | loss: 0.6481
+  Epoch   4/100 | loss: 0.5845
+  Epoch   5/100 | loss: 0.5298
+  Epoch   6/100 | loss: 0.5167
+  Epoch   7/100 | loss: 0.4709
+  Epoch   8/100 | loss: 0.4650
+  Epoch   9/100 | loss: 0.3936
+  Epoch  10/100 | loss: 0.3663
+  ✔ Validation @ epoch 10: acc=0.8444
+  Epoch  11/100 | loss: 0.3359
+  Epoch  12/100 | loss: 0.3632
+  Epoch  13/100 | loss: 0.3605
+  Epoch  14/100 | loss: 0.3658
+  Epoch  15/100 | loss: 0.2506
+  Epoch  16/100 | loss: 0.2577
+  Epoch  17/100 | loss: 0.2218
+  Epoch  18/100 | loss: 0.2177
+  Epoch  19/100 | loss: 0.1917
+  Epoch  20/100 | loss: 0.1662
+  ✔ Validation @ epoch 20: acc=0.9333
+  Epoch  21/100 | loss: 0.1407
+  Epoch  22/100 | loss: 0.1283
+  Epoch  23/100 | loss: 0.1181
+  Epoch  24/100 | loss: 0.1036
+  Epoch  25/100 | loss: 0.0885
+  Epoch  26/100 | loss: 0.0831
+  Epoch  27/100 | loss: 0.0699
+  Epoch  28/100 | loss: 0.0649
+  Epoch  29/100 | loss: 0.0585
+  Epoch  30/100 | loss: 0.0600
+  ✔ Validation @ epoch 30: acc=0.8667
+  Epoch  31/100 | loss: 0.0489
+  Epoch  32/100 | loss: 0.0462
+  Epoch  33/100 | loss: 0.0383
+  Epoch  34/100 | loss: 0.0351
+  Epoch  35/100 | loss: 0.0428
+  Epoch  36/100 | loss: 0.0269
+  Epoch  37/100 | loss: 0.0326
+  Epoch  38/100 | loss: 0.0333
+  Epoch  39/100 | loss: 0.0342
+  Epoch  40/100 | loss: 0.0237
+  ✔ Validation @ epoch 40: acc=0.8667
+  Epoch  41/100 | loss: 0.0207
+  Epoch  42/100 | loss: 0.0173
+  Epoch  43/100 | loss: 0.0190
+  Epoch  44/100 | loss: 0.0160
+  Epoch  45/100 | loss: 0.0142
+  Epoch  46/100 | loss: 0.0134
+  Epoch  47/100 | loss: 0.0122
+  Epoch  48/100 | loss: 0.0113
+  Epoch  49/100 | loss: 0.0107
+  Epoch  50/100 | loss: 0.0104
+  ✔ Validation @ epoch 50: acc=0.9111
+  Epoch  51/100 | loss: 0.0091
+  Epoch  52/100 | loss: 0.0091
+  Epoch  53/100 | loss: 0.0077
+  Epoch  54/100 | loss: 0.0108
+  Epoch  55/100 | loss: 0.0098
+  Epoch  56/100 | loss: 0.0086
+  Epoch  57/100 | loss: 0.0070
+  Epoch  58/100 | loss: 0.0072
+  Epoch  59/100 | loss: 0.0063
+  Epoch  60/100 | loss: 0.0059
+  ✔ Validation @ epoch 60: acc=0.9111
+  Epoch  61/100 | loss: 0.0053
+  Epoch  62/100 | loss: 0.0052
+  Epoch  63/100 | loss: 0.0046
+  Epoch  64/100 | loss: 0.0056
+  Epoch  65/100 | loss: 0.0055
+  Epoch  66/100 | loss: 0.0032
+  Epoch  67/100 | loss: 0.0067
+  Epoch  68/100 | loss: 0.0032
+  Epoch  69/100 | loss: 0.0032
+  Epoch  70/100 | loss: 0.0034
+  ✔ Validation @ epoch 70: acc=0.9111
+  Epoch  71/100 | loss: 0.0027
+  Epoch  72/100 | loss: 0.0027
+  Epoch  73/100 | loss: 0.0025
+  Epoch  74/100 | loss: 0.0020
+  Epoch  75/100 | loss: 0.0021
+  Epoch  76/100 | loss: 0.0018
+  Epoch  77/100 | loss: 0.0018
+  Epoch  78/100 | loss: 0.0018
+  Epoch  79/100 | loss: 0.0017
+  Epoch  80/100 | loss: 0.0018
+  ✔ Validation @ epoch 80: acc=0.9111
+  Epoch  81/100 | loss: 0.0015
+  Epoch  82/100 | loss: 0.0015
+  Epoch  83/100 | loss: 0.0014
+  Epoch  84/100 | loss: 0.0013
+  Epoch  85/100 | loss: 0.0013
+  Epoch  86/100 | loss: 0.0013
+  Epoch  87/100 | loss: 0.0012
+  Epoch  88/100 | loss: 0.0013
+  Epoch  89/100 | loss: 0.0012
+  Epoch  90/100 | loss: 0.0013
+  ✔ Validation @ epoch 90: acc=0.9111
+  Epoch  91/100 | loss: 0.0012
+  Epoch  92/100 | loss: 0.0010
+  Epoch  93/100 | loss: 0.0010
+  Epoch  94/100 | loss: 0.0011
+  Epoch  95/100 | loss: 0.0009
+  Epoch  96/100 | loss: 0.0012
+  Epoch  97/100 | loss: 0.0009
+  Epoch  98/100 | loss: 0.0009
+  Epoch  99/100 | loss: 0.0008
+  Epoch 100/100 | loss: 0.0008
+  ✔ Validation @ epoch 100: acc=0.9111
+
+----- THREE-GROUP DATALOADERS -----
+  Group [0, 1, 2, 3] | total=418 (train=334, valid=84) | per-label counts: {0: 68, 1: 27, 2: 166, 3: 157}
+  Group [0, 4, 5, 6] | total=526 (train=420, valid=106) | per-label counts: {0: 68, 4: 168, 5: 135, 6: 155}
+  Group [0, 7, 8] | total=359 (train=287, valid=72) | per-label counts: {0: 68, 7: 135, 8: 156}
+
+═══════════════════════════════════════════════════════
+  Training: [group_eye]  |  classes=4  |  train=334  valid=84
+═══════════════════════════════════════════════════════
+  Epoch   1/100 | loss: 1.2561
+  Epoch   2/100 | loss: 1.1949
+  Epoch   3/100 | loss: 1.1414
+  Epoch   4/100 | loss: 1.1071
+  Epoch   5/100 | loss: 1.0505
+  Epoch   6/100 | loss: 1.0050
+  Epoch   7/100 | loss: 0.9520
+  Epoch   8/100 | loss: 0.8591
+  Epoch   9/100 | loss: 0.7975
+  Epoch  10/100 | loss: 0.7523
+  ✔ Validation @ epoch 10: acc=0.3452
+  Epoch  11/100 | loss: 0.7139
+  Epoch  12/100 | loss: 0.7123
+  Epoch  13/100 | loss: 0.6702
+  Epoch  14/100 | loss: 0.6324
+  Epoch  15/100 | loss: 0.5818
+  Epoch  16/100 | loss: 0.5719
+  Epoch  17/100 | loss: 0.5243
+  Epoch  18/100 | loss: 0.5514
+  Epoch  19/100 | loss: 0.5487
+  Epoch  20/100 | loss: 0.5106
+  ✔ Validation @ epoch 20: acc=0.3690
+  Epoch  21/100 | loss: 0.4835
+  Epoch  22/100 | loss: 0.4369
+  Epoch  23/100 | loss: 0.4338
+  Epoch  24/100 | loss: 0.4226
+  Epoch  25/100 | loss: 0.4370
+  Epoch  26/100 | loss: 0.4024
+  Epoch  27/100 | loss: 0.3764
+  Epoch  28/100 | loss: 0.3790
+  Epoch  29/100 | loss: 0.3472
+  Epoch  30/100 | loss: 0.3234
+  ✔ Validation @ epoch 30: acc=0.4524
+  Epoch  31/100 | loss: 0.3080
+  Epoch  32/100 | loss: 0.2908
+  Epoch  33/100 | loss: 0.2717
+  Epoch  34/100 | loss: 0.2714
+  Epoch  35/100 | loss: 0.2782
+  Epoch  36/100 | loss: 0.2838
+  Epoch  37/100 | loss: 0.2708
+  Epoch  38/100 | loss: 0.2447
+  Epoch  39/100 | loss: 0.2319
+  Epoch  40/100 | loss: 0.2129
+  ✔ Validation @ epoch 40: acc=0.4881
+  Epoch  41/100 | loss: 0.2289
+  Epoch  42/100 | loss: 0.2227
+  Epoch  43/100 | loss: 0.2350
+  Epoch  44/100 | loss: 0.2160
+  Epoch  45/100 | loss: 0.2302
+  Epoch  46/100 | loss: 0.1914
+  Epoch  47/100 | loss: 0.1595
+  Epoch  48/100 | loss: 0.2011
+  Epoch  49/100 | loss: 0.2348
+  Epoch  50/100 | loss: 0.2464
+  ✔ Validation @ epoch 50: acc=0.4881
+  Epoch  51/100 | loss: 0.1895
+  Epoch  52/100 | loss: 0.1583
+  Epoch  53/100 | loss: 0.1655
+  Epoch  54/100 | loss: 0.1327
+  Epoch  55/100 | loss: 0.1228
+  Epoch  56/100 | loss: 0.1086
+  Epoch  57/100 | loss: 0.0977
+  Epoch  58/100 | loss: 0.0921
+  Epoch  59/100 | loss: 0.0782
+  Epoch  60/100 | loss: 0.0958
+  ✔ Validation @ epoch 60: acc=0.4643
+  Epoch  61/100 | loss: 0.0834
+  Epoch  62/100 | loss: 0.0687
+  Epoch  63/100 | loss: 0.0736
+  Epoch  64/100 | loss: 0.1300
+  Epoch  65/100 | loss: 0.1053
+  Epoch  66/100 | loss: 0.1168
+  Epoch  67/100 | loss: 0.0740
+  Epoch  68/100 | loss: 0.0663
+  Epoch  69/100 | loss: 0.0558
+  Epoch  70/100 | loss: 0.0470
+  ✔ Validation @ epoch 70: acc=0.5000
+  Epoch  71/100 | loss: 0.0413
+  Epoch  72/100 | loss: 0.0505
+  Epoch  73/100 | loss: 0.0374
+  Epoch  74/100 | loss: 0.0528
+  Epoch  75/100 | loss: 0.0427
+  Epoch  76/100 | loss: 0.0485
+  Epoch  77/100 | loss: 0.0473
+  Epoch  78/100 | loss: 0.0368
+  Epoch  79/100 | loss: 0.0329
+  Epoch  80/100 | loss: 0.0355
+  ✔ Validation @ epoch 80: acc=0.5119
+  Epoch  81/100 | loss: 0.0353
+  Epoch  82/100 | loss: 0.0329
+  Epoch  83/100 | loss: 0.0276
+  Epoch  84/100 | loss: 0.0262
+  Epoch  85/100 | loss: 0.0216
+  Epoch  86/100 | loss: 0.0255
+  Epoch  87/100 | loss: 0.0222
+  Epoch  88/100 | loss: 0.0251
+  Epoch  89/100 | loss: 0.0435
+  Epoch  90/100 | loss: 0.0459
+  ✔ Validation @ epoch 90: acc=0.5357
+  Epoch  91/100 | loss: 0.0306
+  Epoch  92/100 | loss: 0.0469
+  Epoch  93/100 | loss: 0.0499
+  Epoch  94/100 | loss: 0.0715
+  Epoch  95/100 | loss: 0.0717
+  Epoch  96/100 | loss: 0.1524
+  Epoch  97/100 | loss: 0.2859
+  Epoch  98/100 | loss: 0.4749
+  Epoch  99/100 | loss: 0.6654
+  Epoch 100/100 | loss: 0.3256
+  ✔ Validation @ epoch 100: acc=0.4167
+
+═══════════════════════════════════════════════════════
+  Training: [group_jaw]  |  classes=7  |  train=420  valid=106
+═══════════════════════════════════════════════════════
+  Epoch   1/100 | loss: 1.6405
+  Epoch   2/100 | loss: 1.3418
+  Epoch   3/100 | loss: 1.2766
+  Epoch   4/100 | loss: 1.2232
+  Epoch   5/100 | loss: 1.1820
+  Epoch   6/100 | loss: 1.1483
+  Epoch   7/100 | loss: 1.1292
+  Epoch   8/100 | loss: 1.0869
+  Epoch   9/100 | loss: 1.0288
+  Epoch  10/100 | loss: 1.0944
+  ✔ Validation @ epoch 10: acc=0.3774
+  Epoch  11/100 | loss: 1.0659
+  Epoch  12/100 | loss: 1.0639
+  Epoch  13/100 | loss: 1.0255
+  Epoch  14/100 | loss: 1.0044
+  Epoch  15/100 | loss: 0.9397
+  Epoch  16/100 | loss: 0.9076
+  Epoch  17/100 | loss: 0.9733
+  Epoch  18/100 | loss: 0.8976
+  Epoch  19/100 | loss: 0.9235
+  Epoch  20/100 | loss: 0.8675
+  ✔ Validation @ epoch 20: acc=0.4434
+  Epoch  21/100 | loss: 0.8349
+  Epoch  22/100 | loss: 0.7960
+  Epoch  23/100 | loss: 0.8160
+  Epoch  24/100 | loss: 0.7611
+  Epoch  25/100 | loss: 0.7704
+  Epoch  26/100 | loss: 0.7103
+  Epoch  27/100 | loss: 0.7419
+  Epoch  28/100 | loss: 0.7862
+  Epoch  29/100 | loss: 0.6817
+  Epoch  30/100 | loss: 0.6709
+  ✔ Validation @ epoch 30: acc=0.4151
+  Epoch  31/100 | loss: 0.6316
+  Epoch  32/100 | loss: 0.6160
+  Epoch  33/100 | loss: 0.5570
+  Epoch  34/100 | loss: 0.5543
+  Epoch  35/100 | loss: 0.5715
+  Epoch  36/100 | loss: 0.5983
+  Epoch  37/100 | loss: 0.5943
+  Epoch  38/100 | loss: 0.6383
+  Epoch  39/100 | loss: 0.5382
+  Epoch  40/100 | loss: 0.4901
+  ✔ Validation @ epoch 40: acc=0.3774
+  Epoch  41/100 | loss: 0.4722
+  Epoch  42/100 | loss: 0.4318
+  Epoch  43/100 | loss: 0.4500
+  Epoch  44/100 | loss: 0.4655
+  Epoch  45/100 | loss: 0.4384
+  Epoch  46/100 | loss: 0.4174
+  Epoch  47/100 | loss: 0.3992
+  Epoch  48/100 | loss: 0.4343
+  Epoch  49/100 | loss: 0.3514
+  Epoch  50/100 | loss: 0.3523
+  ✔ Validation @ epoch 50: acc=0.4811
+  Epoch  51/100 | loss: 0.3564
+  Epoch  52/100 | loss: 0.4483
+  Epoch  53/100 | loss: 0.3918
+  Epoch  54/100 | loss: 0.3932
+  Epoch  55/100 | loss: 0.3473
+  Epoch  56/100 | loss: 0.2739
+  Epoch  57/100 | loss: 0.2807
+  Epoch  58/100 | loss: 0.2575
+  Epoch  59/100 | loss: 0.2414
+  Epoch  60/100 | loss: 0.2612
+  ✔ Validation @ epoch 60: acc=0.4811
+  Epoch  61/100 | loss: 0.2986
+  Epoch  62/100 | loss: 0.2616
+  Epoch  63/100 | loss: 0.2726
+  Epoch  64/100 | loss: 0.2572
+  Epoch  65/100 | loss: 0.2083
+  Epoch  66/100 | loss: 0.2522
+  Epoch  67/100 | loss: 0.2612
+  Epoch  68/100 | loss: 0.2903
+  Epoch  69/100 | loss: 0.2532
+  Epoch  70/100 | loss: 0.2005
+  ✔ Validation @ epoch 70: acc=0.4245
+  Epoch  71/100 | loss: 0.1955
+  Epoch  72/100 | loss: 0.2050
+  Epoch  73/100 | loss: 0.1766
+  Epoch  74/100 | loss: 0.1717
+  Epoch  75/100 | loss: 0.2033
+  Epoch  76/100 | loss: 0.3632
+  Epoch  77/100 | loss: 0.4353
+  Epoch  78/100 | loss: 0.3612
+  Epoch  79/100 | loss: 0.2837
+  Epoch  80/100 | loss: 0.2119
+  ✔ Validation @ epoch 80: acc=0.4245
+  Epoch  81/100 | loss: 0.1962
+  Epoch  82/100 | loss: 0.1678
+  Epoch  83/100 | loss: 0.1559
+  Epoch  84/100 | loss: 0.1689
+  Epoch  85/100 | loss: 0.2039
+  Epoch  86/100 | loss: 0.1337
+  Epoch  87/100 | loss: 0.1403
+  Epoch  88/100 | loss: 0.1380
+  Epoch  89/100 | loss: 0.1181
+  Epoch  90/100 | loss: 0.1380
+  ✔ Validation @ epoch 90: acc=0.4623
+  Epoch  91/100 | loss: 0.1165
+  Epoch  92/100 | loss: 0.1329
+  Epoch  93/100 | loss: 0.2511
+  Epoch  94/100 | loss: 0.1628
+  Epoch  95/100 | loss: 0.1957
+  Epoch  96/100 | loss: 0.1984
+  Epoch  97/100 | loss: 0.1474
+  Epoch  98/100 | loss: 0.1091
+  Epoch  99/100 | loss: 0.1017
+  Epoch 100/100 | loss: 0.0911
+  ✔ Validation @ epoch 100: acc=0.4717
+
+═══════════════════════════════════════════════════════
+  Training: [group_face]  |  classes=9  |  train=287  valid=72
+═══════════════════════════════════════════════════════
+  Epoch   1/100 | loss: 1.8098
+  Epoch   2/100 | loss: 1.1007
+  Epoch   3/100 | loss: 0.9829
+  Epoch   4/100 | loss: 0.9059
+  Epoch   5/100 | loss: 0.8521
+  Epoch   6/100 | loss: 0.8476
+  Epoch   7/100 | loss: 0.8026
+  Epoch   8/100 | loss: 0.7907
+  Epoch   9/100 | loss: 0.7562
+  Epoch  10/100 | loss: 0.7300
+  ✔ Validation @ epoch 10: acc=0.5278
+  Epoch  11/100 | loss: 0.6912
+  Epoch  12/100 | loss: 0.6656
+  Epoch  13/100 | loss: 0.6481
+  Epoch  14/100 | loss: 0.6292
+  Epoch  15/100 | loss: 0.5820
+  Epoch  16/100 | loss: 0.5836
+  Epoch  17/100 | loss: 0.5741
+  Epoch  18/100 | loss: 0.5279
+  Epoch  19/100 | loss: 0.4897
+  Epoch  20/100 | loss: 0.4897
+  ✔ Validation @ epoch 20: acc=0.6667
+  Epoch  21/100 | loss: 0.4808
+  Epoch  22/100 | loss: 0.4720
+  Epoch  23/100 | loss: 0.4391
+  Epoch  24/100 | loss: 0.4166
+  Epoch  25/100 | loss: 0.3967
+  Epoch  26/100 | loss: 0.3804
+  Epoch  27/100 | loss: 0.3800
+  Epoch  28/100 | loss: 0.3539
+  Epoch  29/100 | loss: 0.3353
+  Epoch  30/100 | loss: 0.3236
+  ✔ Validation @ epoch 30: acc=0.6667
+  Epoch  31/100 | loss: 0.3161
+  Epoch  32/100 | loss: 0.2905
+  Epoch  33/100 | loss: 0.2795
+  Epoch  34/100 | loss: 0.2872
+  Epoch  35/100 | loss: 0.2581
+  Epoch  36/100 | loss: 0.2567
+  Epoch  37/100 | loss: 0.2388
+  Epoch  38/100 | loss: 0.2115
+  Epoch  39/100 | loss: 0.2073
+  Epoch  40/100 | loss: 0.1985
+  ✔ Validation @ epoch 40: acc=0.6944
+  Epoch  41/100 | loss: 0.2148
+  Epoch  42/100 | loss: 0.2252
+  Epoch  43/100 | loss: 0.2531
+  Epoch  44/100 | loss: 0.2340
+  Epoch  45/100 | loss: 0.2003
+  Epoch  46/100 | loss: 0.1681
+  Epoch  47/100 | loss: 0.1541
+  Epoch  48/100 | loss: 0.1474
+  Epoch  49/100 | loss: 0.1745
+  Epoch  50/100 | loss: 0.1654
+  ✔ Validation @ epoch 50: acc=0.7361
+  Epoch  51/100 | loss: 0.1338
+  Epoch  52/100 | loss: 0.1200
+  Epoch  53/100 | loss: 0.1116
+  Epoch  54/100 | loss: 0.1144
+  Epoch  55/100 | loss: 0.1083
+  Epoch  56/100 | loss: 0.1160
+  Epoch  57/100 | loss: 0.1193
+  Epoch  58/100 | loss: 0.1103
+  Epoch  59/100 | loss: 0.0920
+  Epoch  60/100 | loss: 0.0900
+  ✔ Validation @ epoch 60: acc=0.6944
+  Epoch  61/100 | loss: 0.0962
+  Epoch  62/100 | loss: 0.1618
+  Epoch  63/100 | loss: 0.1539
+  Epoch  64/100 | loss: 0.2015
+  Epoch  65/100 | loss: 0.2138
+  Epoch  66/100 | loss: 0.1995
+  Epoch  67/100 | loss: 0.2797
+  Epoch  68/100 | loss: 0.2059
+  Epoch  69/100 | loss: 0.1439
+  Epoch  70/100 | loss: 0.1287
+  ✔ Validation @ epoch 70: acc=0.7083
+  Epoch  71/100 | loss: 0.1003
+  Epoch  72/100 | loss: 0.0762
+  Epoch  73/100 | loss: 0.0688
+  Epoch  74/100 | loss: 0.0607
+  Epoch  75/100 | loss: 0.0573
+  Epoch  76/100 | loss: 0.0537
+  Epoch  77/100 | loss: 0.0499
+  Epoch  78/100 | loss: 0.0510
+  Epoch  79/100 | loss: 0.0452
+  Epoch  80/100 | loss: 0.0515
+  ✔ Validation @ epoch 80: acc=0.7361
+  Epoch  81/100 | loss: 0.0480
+  Epoch  82/100 | loss: 0.0395
+  Epoch  83/100 | loss: 0.0399
+  Epoch  84/100 | loss: 0.0329
+  Epoch  85/100 | loss: 0.0367
+  Epoch  86/100 | loss: 0.0311
+  Epoch  87/100 | loss: 0.0316
+  Epoch  88/100 | loss: 0.0370
+  Epoch  89/100 | loss: 0.0244
+  Epoch  90/100 | loss: 0.0314
+  ✔ Validation @ epoch 90: acc=0.7222
+  Epoch  91/100 | loss: 0.0271
+  Epoch  92/100 | loss: 0.0341
+  Epoch  93/100 | loss: 0.0370
+  Epoch  94/100 | loss: 0.0377
+  Epoch  95/100 | loss: 0.0272
+  Epoch  96/100 | loss: 0.0252
+  Epoch  97/100 | loss: 0.0229
+  Epoch  98/100 | loss: 0.0202
+  Epoch  99/100 | loss: 0.0189
+  Epoch 100/100 | loss: 0.0209
+  ✔ Validation @ epoch 100: acc=0.7222
+
+═══════════════════════════════════════════════════════
+  SUMMARY — Final validation accuracy
+───────────────────────────────────────────────────────
+  full                  →  0.3974
+  trigger_0             →  1.0000
+  trigger_1             →  0.5263
+  trigger_2             →  0.8511
+  trigger_3             →  0.8000
+  trigger_4             →  0.7708
+  trigger_5             →  0.8780
+  trigger_6             →  0.8000
+  trigger_7             →  0.7317
+  trigger_8             →  0.9111
+  group_eye             →  0.4167
+  group_jaw             →  0.4717
+  group_face            →  0.7222
+═══════════════════════════════════════════════════════
+===== JOB END =====

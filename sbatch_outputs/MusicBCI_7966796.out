@@ -1,0 +1,17 @@
+==========================================
+SLURM_JOB_ID = 7966796
+SLURM_JOB_NODELIST = d06-16
+TMPDIR = /tmp/SLURM_7966796
+==========================================
+Epoch 1/10 | Loss: 2.1247
+Epoch 2/10 | Loss: 2.0221
+Epoch 3/10 | Loss: 1.9705
+Epoch 4/10 | Loss: 1.8994
+Epoch 5/10 | Loss: 1.8378
+Epoch 6/10 | Loss: 1.8209
+Epoch 7/10 | Loss: 1.7761
+Epoch 8/10 | Loss: 1.7531
+Epoch 9/10 | Loss: 1.6727
+Epoch 10/10 | Loss: 1.6777
+Validation accuracy: 0.3077
+===== JOB END =====

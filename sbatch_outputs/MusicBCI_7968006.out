@@ -1,0 +1,116 @@
+==========================================
+SLURM_JOB_ID = 7968006
+SLURM_JOB_NODELIST = d05-37
+TMPDIR = /tmp/SLURM_7968006
+==========================================
+Epoch 1/100 | Loss: 2.1407
+Epoch 2/100 | Loss: 2.0245
+Epoch 3/100 | Loss: 1.9708
+Epoch 4/100 | Loss: 1.9239
+Epoch 5/100 | Loss: 1.8901
+Epoch 6/100 | Loss: 1.8076
+Epoch 7/100 | Loss: 1.7561
+Epoch 8/100 | Loss: 1.7148
+Epoch 9/100 | Loss: 1.7427
+Epoch 10/100 | Loss: 1.6267
+👉 Validation @ epoch 10: 0.3120
+Epoch 11/100 | Loss: 1.6253
+Epoch 12/100 | Loss: 1.5851
+Epoch 13/100 | Loss: 1.5354
+Epoch 14/100 | Loss: 1.5063
+Epoch 15/100 | Loss: 1.4807
+Epoch 16/100 | Loss: 1.4206
+Epoch 17/100 | Loss: 1.4102
+Epoch 18/100 | Loss: 1.3534
+Epoch 19/100 | Loss: 1.3115
+Epoch 20/100 | Loss: 1.2941
+👉 Validation @ epoch 20: 0.3120
+Epoch 21/100 | Loss: 1.2366
+Epoch 22/100 | Loss: 1.2010
+Epoch 23/100 | Loss: 1.1832
+Epoch 24/100 | Loss: 1.1396
+Epoch 25/100 | Loss: 1.1230
+Epoch 26/100 | Loss: 1.0825
+Epoch 27/100 | Loss: 1.0283
+Epoch 28/100 | Loss: 1.0567
+Epoch 29/100 | Loss: 1.0322
+Epoch 30/100 | Loss: 1.0337
+👉 Validation @ epoch 30: 0.3846
+Epoch 31/100 | Loss: 0.9555
+Epoch 32/100 | Loss: 0.8905
+Epoch 33/100 | Loss: 0.8891
+Epoch 34/100 | Loss: 0.8417
+Epoch 35/100 | Loss: 0.8355
+Epoch 36/100 | Loss: 0.8849
+Epoch 37/100 | Loss: 0.8168
+Epoch 38/100 | Loss: 0.7594
+Epoch 39/100 | Loss: 0.7134
+Epoch 40/100 | Loss: 0.7116
+👉 Validation @ epoch 40: 0.3803
+Epoch 41/100 | Loss: 0.7125
+Epoch 42/100 | Loss: 0.6915
+Epoch 43/100 | Loss: 0.6486
+Epoch 44/100 | Loss: 0.6305
+Epoch 45/100 | Loss: 0.5845
+Epoch 46/100 | Loss: 0.5842
+Epoch 47/100 | Loss: 0.5641
+Epoch 48/100 | Loss: 0.5380
+Epoch 49/100 | Loss: 0.5091
+Epoch 50/100 | Loss: 0.5413
+👉 Validation @ epoch 50: 0.3761
+Epoch 51/100 | Loss: 0.5030
+Epoch 52/100 | Loss: 0.5019
+Epoch 53/100 | Loss: 0.4866
+Epoch 54/100 | Loss: 0.4619
+Epoch 55/100 | Loss: 0.4120
+Epoch 56/100 | Loss: 0.3621
+Epoch 57/100 | Loss: 0.3536
+Epoch 58/100 | Loss: 0.3826
+Epoch 59/100 | Loss: 0.3819
+Epoch 60/100 | Loss: 0.5007
+👉 Validation @ epoch 60: 0.3419
+Epoch 61/100 | Loss: 0.4348
+Epoch 62/100 | Loss: 0.3627
+Epoch 63/100 | Loss: 0.3117
+Epoch 64/100 | Loss: 0.3030
+Epoch 65/100 | Loss: 0.3233
+Epoch 66/100 | Loss: 0.3098
+Epoch 67/100 | Loss: 0.2955
+Epoch 68/100 | Loss: 0.2647
+Epoch 69/100 | Loss: 0.3452
+Epoch 70/100 | Loss: 0.4102
+👉 Validation @ epoch 70: 0.4017
+Epoch 71/100 | Loss: 0.3341
+Epoch 72/100 | Loss: 0.2865
+Epoch 73/100 | Loss: 0.2321
+Epoch 74/100 | Loss: 0.2094
+Epoch 75/100 | Loss: 0.2177
+Epoch 76/100 | Loss: 0.2034
+Epoch 77/100 | Loss: 0.2087
+Epoch 78/100 | Loss: 0.1717
+Epoch 79/100 | Loss: 0.1765
+Epoch 80/100 | Loss: 0.1841
+👉 Validation @ epoch 80: 0.4231
+Epoch 81/100 | Loss: 0.1978
+Epoch 82/100 | Loss: 0.2112
+Epoch 83/100 | Loss: 0.2093
+Epoch 84/100 | Loss: 0.2483
+Epoch 85/100 | Loss: 0.4239
+Epoch 86/100 | Loss: 0.3566
+Epoch 87/100 | Loss: 0.2279
+Epoch 88/100 | Loss: 0.1941
+Epoch 89/100 | Loss: 0.1528
+Epoch 90/100 | Loss: 0.1803
+👉 Validation @ epoch 90: 0.4103
+Epoch 91/100 | Loss: 0.1537
+Epoch 92/100 | Loss: 0.1733
+Epoch 93/100 | Loss: 0.1523
+Epoch 94/100 | Loss: 0.1203
+Epoch 95/100 | Loss: 0.1218
+Epoch 96/100 | Loss: 0.0910
+Epoch 97/100 | Loss: 0.0948
+Epoch 98/100 | Loss: 0.1346
+Epoch 99/100 | Loss: 0.0883
+Epoch 100/100 | Loss: 0.1020
+👉 Validation @ epoch 100: 0.4145
+===== JOB END =====
