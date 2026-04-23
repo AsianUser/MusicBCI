@@ -98,7 +98,10 @@ def make_per_trigger_dataloaders(
     X_all: torch.Tensor = meta["X"]  # [N, channels, time]
     y_all: torch.Tensor = meta["y"]  # [N]
 
-    unique_labels = sorted(y_all.unique().tolist())
+    # unique_labels = sorted(y_all.unique().tolist())
+    unique_labels = (
+        9 if len(unique_labels) > 8 else unique_labels
+    )  # sanity cap for printing
     no_activity_mask = y_all == 0
 
     print(
