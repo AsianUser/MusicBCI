@@ -5,21 +5,12 @@ from torch.utils.data import DataLoader, TensorDataset, random_split
 import matplotlib.pyplot as plt
 from pathlib import Path
 
-from WindowMethods import create_windows_generic, create_windows_raise_triggers
-
-SPECIAL_FOLDER = "NOTE MUST Raise All Trigger Vals by 1"
+from WindowMethods import create_windows_generic
 
 
 def load_one_csv(csv_path: Path, **dataset_kwargs):
     df = pd.read_csv(csv_path, comment="#")
-
-    if SPECIAL_FOLDER in csv_path.parts:
-        windows, onsets, labels, eeg_cols = create_windows_raise_triggers(
-            df, **dataset_kwargs
-        )
-    else:
-        windows, onsets, labels, eeg_cols = create_windows_generic(df, **dataset_kwargs)
-
+    windows, onsets, labels, eeg_cols = create_windows_generic(df, **dataset_kwargs)
     return windows, onsets, labels, eeg_cols
 
 
@@ -54,7 +45,6 @@ def make_dataset_from_folder(root_dir: str, **dataset_kwargs):
                 "onsets": onsets,
                 "eeg_cols": eeg_cols,
                 "n_windows": len(labels),
-                "special": SPECIAL_FOLDER in csv_path.parts,
             }
         )
 
