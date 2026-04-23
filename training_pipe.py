@@ -221,6 +221,30 @@ def main() -> dict[str, dict]:
             label=group_name,
         )
 
+    # ── 4. Custom group: triggers {2, 3, 5, 8} ─────────────────────────────────
+    from DataLoader import make_group_dataloader  # already imported above
+
+    custom_tr_loader, custom_va_loader = make_group_dataloader(
+        ROOT_DIR,
+        trigger_labels=[2, 3, 5, 8],
+        batch_size=BATCH_SIZE,
+        train_split=0.8,
+        seed=SEED,
+        **DATASET_KWARGS,
+    )
+
+    # num_classes must reach label 8
+    subset_y = custom_tr_loader.dataset.dataset.tensors[1]
+    nc = int(subset_y.max().item()) + 1
+
+    all_results["group_2358"] = train_and_evaluate(
+        custom_tr_loader,
+        custom_va_loader,
+        input_channels=input_channels,
+        num_classes=nc,
+        label="group_2358",
+    )
+
     # ── Summary ─────────────────────────────────────────────────────────────
     print(f"\n{'═' * 55}")
     print("  SUMMARY — Final validation accuracy")
