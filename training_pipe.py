@@ -1,21 +1,27 @@
 import torch
 import torch.nn as nn
 import torch.optim as optim
+from pathlib import Path
+
 from torch.utils.data import random_split, DataLoader
 
-from DataLoader import make_dataset_from_folder, make_per_trigger_dataloaders, make_three_group_dataloaders
+from DataLoader import (
+    make_dataset_from_folder,
+    make_per_trigger_dataloaders,
+    make_three_group_dataloaders,
+)
 from model import EEG_CNN
 
 
 # ── Config ─────────────────────────────────────────────────────────────────
-ROOT_DIR       = r"MusicBCI_Data"
-SAMPLE_RATE    = 300
-CHUNK_SECONDS  = 1.5
-SKIP_SECONDS   = 0.25
-BATCH_SIZE     = 32
-EPOCHS         = 100
-LR             = 1e-3
-SEED           = 42
+ROOT_DIR = r"MusicBCI_Data"
+SAMPLE_RATE = 300
+CHUNK_SECONDS = 1.5
+SKIP_SECONDS = 0.25
+BATCH_SIZE = 32
+EPOCHS = 100
+LR = 1e-3
+SEED = 42
 VALIDATE_EVERY = 10
 
 DATASET_KWARGS = dict(
@@ -24,6 +30,8 @@ DATASET_KWARGS = dict(
     skip_after_prompt_seconds=SKIP_SECONDS,
     normalize=True,
 )
+
+Path("checkpoints").mkdir(exist_ok=True)
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -55,13 +63,17 @@ def train_and_evaluate(
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.Adam(model.parameters(), lr=lr)
 
-    epoch_losses    = []
+    epoch_losses = []
     val_checkpoints = {}
 
     print(f"\n{'═' * 55}")
-    print(f"  Training: [{label}]  |  classes={num_classes}  |  "
-          f"train={len(train_loader.dataset)}  valid={len(valid_loader.dataset)}")
+    print(
+        f"  Training: [{label}]  |  classes={num_classes}  |  "
+        f"train={len(train_loader.dataset)}  valid={len(valid_loader.dataset)}"
+    )
     print(f"{'═' * 55}")
+
+    best_val_acc = 0.0  # add before the epoch loop
 
     for epoch in range(epochs):
         # ── Train ──────────────────────────────────────────────────────────
@@ -88,22 +100,30 @@ def train_and_evaluate(
             with torch.no_grad():
                 for inputs, labels in valid_loader:
                     inputs, labels = inputs.to(device), labels.to(device)
-                    preds  = torch.argmax(model(inputs), dim=1)
+                    preds = torch.argmax(model(inputs), dim=1)
                     correct += (preds == labels).sum().item()
-                    total   += labels.size(0)
+                    total += labels.size(0)
 
             acc = correct / total if total > 0 else 0.0
             val_checkpoints[epoch + 1] = acc
-            print(f"  ✔ Validation @ epoch {epoch + 1}: acc={acc:.4f}")
+
+            if acc > best_val_acc:
+                best_val_acc = acc
+                torch.save(model.state_dict(), f"checkpoints/model_{label}.pt")
+                print(
+                    f"  ✔ Validation @ epoch {epoch + 1}: acc={acc:.4f}  ← new best, saved"
+                )
+            else:
+                print(f"  ✔ Validation @ epoch {epoch + 1}: acc={acc:.4f}")
 
     final_val_acc = val_checkpoints.get(epochs, list(val_checkpoints.values())[-1])
 
     return {
-        "label":           label,
-        "epoch_losses":    epoch_losses,
+        "label": label,
+        "epoch_losses": epoch_losses,
         "val_checkpoints": val_checkpoints,
-        "final_val_acc":   final_val_acc,
-        "model":           model.cpu(),
+        "final_val_acc": final_val_acc,
+        "model": model.cpu(),
     }
 
 
@@ -113,16 +133,16 @@ def build_full_loaders(root_dir: str) -> tuple[DataLoader, DataLoader, int, int]
     dataset, _ = make_dataset_from_folder(root_dir, **DATASET_KWARGS)
 
     gen = torch.Generator().manual_seed(SEED)
-    n   = len(dataset)
+    n = len(dataset)
     n_train = int(0.8 * n)
     train_ds, test_ds = random_split(dataset, [n_train, n - n_train], generator=gen)
 
     train_loader = DataLoader(train_ds, batch_size=BATCH_SIZE, shuffle=True)
-    valid_loader = DataLoader(test_ds,  batch_size=BATCH_SIZE, shuffle=False)
+    valid_loader = DataLoader(test_ds, batch_size=BATCH_SIZE, shuffle=False)
 
     x_sample, _ = next(iter(train_loader))
     input_channels = x_sample.shape[1]
-    num_classes    = int(dataset.tensors[1].max().item()) + 1
+    num_classes = int(dataset.tensors[1].max().item()) + 1
 
     print(f"Full dataset  | total={n} | train={n_train} | test={n - n_train}")
     return train_loader, valid_loader, input_channels, num_classes
@@ -144,10 +164,13 @@ def main() -> dict[str, dict]:
     all_results: dict[str, dict] = {}
 
     # ── 1. Full-dataset run ─────────────────────────────────────────────────
-    train_loader, valid_loader, input_channels, num_classes = build_full_loaders(ROOT_DIR)
+    train_loader, valid_loader, input_channels, num_classes = build_full_loaders(
+        ROOT_DIR
+    )
 
     all_results["full"] = train_and_evaluate(
-        train_loader, valid_loader,
+        train_loader,
+        valid_loader,
         input_channels=input_channels,
         num_classes=num_classes,
         label="full dataset",
@@ -170,7 +193,8 @@ def main() -> dict[str, dict]:
 
         run_key = f"trigger_{trigger_label}"
         all_results[run_key] = train_and_evaluate(
-            tr_loader, va_loader,
+            tr_loader,
+            va_loader,
             input_channels=input_channels,
             num_classes=nc,
             label=run_key,
@@ -190,7 +214,8 @@ def main() -> dict[str, dict]:
         nc = int(subset_y.max().item()) + 1
 
         all_results[group_name] = train_and_evaluate(
-            tr_loader, va_loader,
+            tr_loader,
+            va_loader,
             input_channels=input_channels,
             num_classes=nc,
             label=group_name,
