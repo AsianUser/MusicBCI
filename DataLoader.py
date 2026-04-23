@@ -160,6 +160,102 @@ def make_per_trigger_dataloaders(
     return per_trigger_loaders
 
 
+def make_group_dataloader(
+    root_dir: str,
+    trigger_labels: list[int],
+    batch_size: int = 32,
+    train_split: float = 0.8,
+    seed: int = 41526,
+    **dataset_kwargs,
+) -> tuple[DataLoader, DataLoader]:
+    """
+    Build a (train_loader, valid_loader) pair containing windows whose
+    label is in `trigger_labels`.  Label 0 (no-activity) is always included
+    automatically — no need to add it to the list yourself.
+
+    Parameters
+    ----------
+    trigger_labels : list[int]
+        Trigger labels to keep alongside label-0.
+        E.g. [1, 2, 3]  →  keeps labels {0, 1, 2, 3}.
+
+    Returns
+    -------
+    (train_loader, valid_loader)
+    """
+    _, meta = make_dataset_from_folder(root_dir, **dataset_kwargs)
+
+    X_all: torch.Tensor = meta["X"]
+    y_all: torch.Tensor = meta["y"]
+
+    # Always include label 0; add the requested triggers
+    keep = set([0] + [int(l) for l in trigger_labels])
+    mask = torch.zeros(len(y_all), dtype=torch.bool)
+    for lbl in keep:
+        mask |= y_all == lbl
+
+    X_sub = X_all[mask]
+    y_sub = y_all[mask]
+
+    ds = TensorDataset(X_sub, y_sub)
+    n_total = len(ds)
+    n_train = int(train_split * n_total)
+    n_valid = n_total - n_train
+
+    split_gen = torch.Generator().manual_seed(seed)
+    train_ds, valid_ds = random_split(ds, [n_train, n_valid], generator=split_gen)
+
+    shuffle_gen = torch.Generator().manual_seed(seed + 1)
+    train_loader = DataLoader(train_ds, batch_size=batch_size, shuffle=True, generator=shuffle_gen)
+    valid_loader = DataLoader(valid_ds, batch_size=batch_size, shuffle=False)
+
+    counts = {int(l): (y_sub == l).sum().item() for l in sorted(keep)}
+    print(
+        f"  Group {sorted(keep)} | total={n_total} "
+        f"(train={n_train}, valid={n_valid}) | per-label counts: {counts}"
+    )
+
+    return train_loader, valid_loader
+
+
+def make_three_group_dataloaders(
+    root_dir: str,
+    batch_size: int = 32,
+    train_split: float = 0.8,
+    seed: int = 41526,
+    **dataset_kwargs,
+) -> dict[str, tuple[DataLoader, DataLoader]]:
+    """
+    Returns three fixed group loaders:
+        "group_eye"  → labels {0, 1, 2, 3}
+        "group_jaw"  → labels {0, 4, 5, 6}
+        "group_face" → labels {0, 7, 8}
+
+    Returns
+    -------
+    dict  {"group_eye": (train, valid), "group_jaw": ..., "group_face": ...}
+    """
+    groups = {
+        "group_eye":  [1, 2, 3],
+        "group_jaw":  [4, 5, 6],
+        "group_face": [7, 8],
+    }
+
+    print("\n----- THREE-GROUP DATALOADERS -----")
+    loaders: dict[str, tuple[DataLoader, DataLoader]] = {}
+    for name, triggers in groups.items():
+        loaders[name] = make_group_dataloader(
+            root_dir,
+            trigger_labels=triggers,
+            batch_size=batch_size,
+            train_split=train_split,
+            seed=seed,
+            **dataset_kwargs,
+        )
+
+    return loaders
+
+
 def visualize_trial(meta, trial_idx=0, channels_to_plot=None):
     X = meta["X"]
     y = meta["y"]
@@ -243,10 +339,28 @@ def main():
         normalize=True,
     )
 
-    # Quick sanity-check: print one batch from each loader
+    # Quick sanity-check: print one batch from each per-trigger loader
     for label, (tr_loader, va_loader) in per_loaders.items():
         for X_b, y_b in tr_loader:
             print(f"\n  [Label {label}] batch shape={X_b.shape}, "
+                  f"unique y in batch={y_b.unique().tolist()}")
+            break
+
+    # ── Three-group loaders ────────────────────────────────────────────────
+    group_loaders = make_three_group_dataloaders(
+        root_dir,
+        batch_size=32,
+        train_split=0.8,
+        seed=41526,
+        sample_rate=300,
+        chunk_seconds=1.5,
+        skip_after_prompt_seconds=0.25,
+        normalize=True,
+    )
+
+    for group_name, (tr_loader, va_loader) in group_loaders.items():
+        for X_b, y_b in tr_loader:
+            print(f"\n  [{group_name}] batch shape={X_b.shape}, "
                   f"unique y in batch={y_b.unique().tolist()}")
             break
 
