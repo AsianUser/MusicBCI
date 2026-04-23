@@ -76,6 +76,115 @@ def plot_confusion_matrix(
     plt.close(fig)
 
 
+# ── Training curves ──────────────────────────────────────────────────────────
+
+
+def plot_training_curves(
+    results: dict,
+    output_dir: str = "confusion_matrices",
+    ncols: int = 3,
+):
+    """
+    Plot train loss + validation accuracy over epochs for every run in `results`.
+
+    Each subplot covers one model key.  A shared grid is used so all runs are
+    easy to compare at a glance.
+
+    Parameters
+    ----------
+    results    : dict returned by train.main() / generate_all_confusion_matrices
+    output_dir : folder where the PNG is saved
+    ncols      : number of columns in the subplot grid (default 3)
+    """
+    output_dir = Path(output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    keys = list(results.keys())
+    n = len(keys)
+    nrows = (n + ncols - 1) // ncols
+
+    fig, axes = plt.subplots(
+        nrows,
+        ncols,
+        figsize=(6 * ncols, 4 * nrows),
+        constrained_layout=True,
+    )
+    fig.suptitle(
+        "Training curves — loss & validation accuracy", fontsize=15, fontweight="bold"
+    )
+
+    # Flatten axes to a 1-D list so we can iterate with zip()
+    axes_flat = np.array(axes).flatten()
+
+    for ax, key in zip(axes_flat, keys):
+        res = results[key]
+        epoch_losses: list[float] = res["epoch_losses"]
+        val_ckpts: dict[int, float] = res["val_checkpoints"]  # {epoch: acc}
+
+        epochs_range = range(1, len(epoch_losses) + 1)
+
+        # ── Left y-axis: train loss ──────────────────────────────────────
+        color_loss = "#2563EB"  # blue
+        ax.plot(
+            epochs_range, epoch_losses, color=color_loss, lw=1.5, label="Train loss"
+        )
+        ax.set_xlabel("Epoch")
+        ax.set_ylabel("Loss", color=color_loss)
+        ax.tick_params(axis="y", labelcolor=color_loss)
+        ax.yaxis.set_major_formatter(ticker.FormatStrFormatter("%.3f"))
+
+        # ── Right y-axis: validation accuracy ───────────────────────────
+        ax2 = ax.twinx()
+        color_acc = "#DC2626"  # red
+        val_epochs = sorted(val_ckpts.keys())
+        val_accs = [val_ckpts[e] for e in val_epochs]
+
+        ax2.plot(
+            val_epochs,
+            val_accs,
+            color=color_acc,
+            lw=2,
+            marker="o",
+            markersize=4,
+            label="Val acc",
+        )
+        ax2.set_ylim(0, 1.05)
+        ax2.set_ylabel("Val accuracy", color=color_acc)
+        ax2.tick_params(axis="y", labelcolor=color_acc)
+        ax2.yaxis.set_major_formatter(ticker.PercentFormatter(xmax=1, decimals=0))
+
+        # ── Best val-acc marker ──────────────────────────────────────────
+        best_epoch = max(val_ckpts, key=val_ckpts.get)
+        best_acc = val_ckpts[best_epoch]
+        ax2.axvline(best_epoch, color=color_acc, lw=0.8, linestyle="--", alpha=0.5)
+        ax2.annotate(
+            f"best {best_acc:.1%}",
+            xy=(best_epoch, best_acc),
+            xytext=(5, -12),
+            textcoords="offset points",
+            fontsize=7,
+            color=color_acc,
+        )
+
+        # ── Title & combined legend ──────────────────────────────────────
+        final_acc = res["final_val_acc"]
+        ax.set_title(f"{key}  (final val acc = {final_acc:.3f})", fontsize=9)
+
+        lines = ax.get_lines() + ax2.get_lines()
+        labels = [l.get_label() for l in lines]
+        ax.legend(lines, labels, fontsize=7, loc="upper right")
+
+    # Hide any unused axes
+    for ax in axes_flat[n:]:
+        ax.set_visible(False)
+
+    save_path = output_dir / "training_curves.png"
+    plt.savefig(save_path, dpi=150, bbox_inches="tight")
+    print(f"  Saved → {save_path}")
+    plt.show()
+    plt.close(fig)
+
+
 # ── Label name maps ──────────────────────────────────────────────────────────
 # Edit these to match your actual trigger meanings.
 GLOBAL_CLASS_NAMES: dict[int, str] = {
@@ -145,7 +254,11 @@ if __name__ == "__main__":
         DATASET_KWARGS,
         ROOT_DIR,
     )
-    from DataLoader import make_per_trigger_dataloaders, make_three_group_dataloaders,    make_group_dataloader
+    from DataLoader import (
+        make_per_trigger_dataloaders,
+        make_three_group_dataloaders,
+        make_group_dataloader,
+    )
     from torch.utils.data import DataLoader
 
     # ── Re-run (or load cached) training ─────────────────────────────────────
@@ -174,8 +287,7 @@ if __name__ == "__main__":
     )
     for name, (_, va) in group_loaders.items():
         valid_loaders[name] = va
-        
-    
+
     _, custom_va = make_group_dataloader(
         ROOT_DIR,
         trigger_labels=[2, 3, 5, 8],
@@ -190,3 +302,4 @@ if __name__ == "__main__":
     generate_all_confusion_matrices(
         results, valid_loaders, output_dir="confusion_matrices"
     )
+    plot_training_curves(results, output_dir="confusion_matrices")

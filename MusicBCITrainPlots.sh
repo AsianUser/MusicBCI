@@ -15,7 +15,7 @@ source /apps/conda/miniforge3/24.11.3/etc/profile.d/conda.sh
 conda activate musicbci
 
 # Run training script
-python -u confusion_matrix.py
+python -u Training_Plots.py
 
 echo "===== JOB END ====="
 
