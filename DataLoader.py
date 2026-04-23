@@ -102,7 +102,9 @@ def make_per_trigger_dataloaders(
     unique_labels = 9  # sanity cap for printing
     no_activity_mask = y_all == 0
 
-    print(f"Found {unique_labels} unique labels: {[int(l) for l in unique_labels]}")
+    print(
+        f"Found {len(unique_labels)} unique labels: {[int(l) for l in unique_labels]}"
+    )
     print(f"No-activity windows (label 0): {no_activity_mask.sum().item()}\n")
 
     per_trigger_loaders: dict[int, tuple[DataLoader, DataLoader]] = {}
