@@ -5,6 +5,8 @@ import matplotlib.ticker as ticker
 from pathlib import Path
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 
+from DataLoader import GLOBAL_CLASS_NAMES
+
 # ── Helpers ─────────────────────────────────────────────────────────────────
 
 

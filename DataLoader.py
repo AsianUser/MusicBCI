@@ -4,17 +4,56 @@ import torch
 from torch.utils.data import DataLoader, TensorDataset, random_split
 import matplotlib.pyplot as plt
 from pathlib import Path
+from collections import Counter
 
 from WindowMethods import create_windows_generic
 
 
-def load_one_csv(csv_path: Path, **dataset_kwargs):
+# ── Label name map (single source of truth — imported by confusion_matrix.py) ──
+GLOBAL_CLASS_NAMES: dict[int, str] = {
+    0: "noActivity",
+    1: "blink",
+    2: "winkLeft",
+    3: "winkRight",
+    4: "jawFull",
+    5: "jawLeft",
+    6: "jawRight",
+    7: "faceLeft",
+    8: "faceRight",
+}
+
+
+def load_one_csv(csv_path: Path, trigger_col: str = "Trigger", **dataset_kwargs):
     df = pd.read_csv(csv_path, comment="#")
-    windows, onsets, labels, eeg_cols = create_windows_generic(df, **dataset_kwargs)
+
+    if trigger_col not in df.columns:
+        raise ValueError(
+            f"Column '{trigger_col}' not found in {csv_path.name}. "
+            f"Available columns: {df.columns.tolist()}"
+        )
+
+    windows, onsets, labels, eeg_cols = create_windows_generic(
+        df, trigger_col=trigger_col, **dataset_kwargs
+    )
+
+    # ── Per-file label inventory ──────────────────────────────────────────────
+    if labels is not None and len(labels) > 0:
+        counts = Counter(labels.tolist())
+        print(f"\n  {csv_path.name}")
+        print(f"  {'Label':>6}  {'Name':<14}  {'Count':>6}")
+        print(f"  {'─' * 32}")
+        for lbl in sorted(counts):
+            name = GLOBAL_CLASS_NAMES.get(int(lbl), f"unknown_{lbl}")
+            print(f"  {int(lbl):>6}  {name:<14}  {counts[lbl]:>6,}")
+        print(f"  {'─' * 32}")
+        print(f"  {'total':<21}  {len(labels):>6,}")
+
     return windows, onsets, labels, eeg_cols
 
 
-def make_dataset_from_folder(root_dir: str, **dataset_kwargs):
+def make_dataset_from_folder(
+    root_dir: str, trigger_col: str = "Trigger", **dataset_kwargs
+):
     root_dir = Path(root_dir)
     csv_files = sorted(root_dir.rglob("*.csv"))
 
@@ -27,7 +66,9 @@ def make_dataset_from_folder(root_dir: str, **dataset_kwargs):
     file_meta = []
 
     for csv_path in csv_files:
-        windows, onsets, labels, eeg_cols = load_one_csv(csv_path, **dataset_kwargs)
+        windows, onsets, labels, eeg_cols = load_one_csv(
+            csv_path, trigger_col=trigger_col, **dataset_kwargs
+        )
 
         if windows is None or len(windows) == 0:
             continue
@@ -53,6 +94,23 @@ def make_dataset_from_folder(root_dir: str, **dataset_kwargs):
 
     X_all = torch.cat(all_X, dim=0)
     y_all = torch.cat(all_y, dim=0)
+
+    # ── Global label inventory (across all files) ─────────────────────────────
+    global_counts = Counter(y_all.tolist())
+    total = y_all.shape[0]
+
+    print(f"\n{'═' * 42}")
+    print(f"  GLOBAL LABEL INVENTORY  ({len(csv_files)} file(s))")
+    print(f"{'─' * 42}")
+    print(f"  {'Label':>6}  {'Name':<14}  {'Count':>6}  {'%':>6}")
+    print(f"{'─' * 42}")
+    for lbl in sorted(global_counts):
+        name = GLOBAL_CLASS_NAMES.get(int(lbl), f"unknown_{lbl}")
+        count = global_counts[lbl]
+        print(f"  {int(lbl):>6}  {name:<14}  {count:>6,}  {count/total:>5.1%}")
+    print(f"{'─' * 42}")
+    print(f"  {'TOTAL':<22}  {total:>6,}  100.0%")
+    print(f"{'═' * 42}\n")
 
     dataset = TensorDataset(X_all, y_all)
 
@@ -296,7 +354,6 @@ def main():
     )
 
     gen = torch.Generator().manual_seed(41526)
-    # was 42
 
     dataset_size = len(dataset)
     train_size = int(0.8 * dataset_size)
