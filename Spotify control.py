@@ -21,22 +21,26 @@ Requirements:
 """
 
 import subprocess
+import time
+from pathlib import Path
 
 
 # --- Config ---
+
+SHARED_FILE = Path("/tmp/eeg_action.txt")
+POLL_INTERVAL = 0.05  # seconds between file checks (50 ms)
+
 VOLUME_STEP = 10  # % per volume up/down call
 
 
 def _run_applescript(script: str) -> str:
     """Run an AppleScript and return stdout."""
-    result = subprocess.run(
-        ["osascript", "-e", script],
-        capture_output=True, text=True
-    )
+    result = subprocess.run(["osascript", "-e", script], capture_output=True, text=True)
     return result.stdout.strip()
 
 
 # --- Individual action functions ---
+
 
 def play_pause():
     """Action 1: Toggle Play / Pause."""
@@ -90,7 +94,9 @@ def mute_toggle():
 
     if current == 0:
         restore_vol = getattr(mute_toggle, "_last_volume", 50)
-        _run_applescript(f'tell application "Spotify" to set sound volume to {restore_vol}')
+        _run_applescript(
+            f'tell application "Spotify" to set sound volume to {restore_vol}'
+        )
         print(f"  Unmuted → restored to {restore_vol}%")
     else:
         mute_toggle._last_volume = current
@@ -129,40 +135,66 @@ def handle_action(action_id: int):
         action_id: Integer from 1 to 8 corresponding to a Spotify action.
     """
     if action_id not in ACTIONS:
-        print(f"[EEG] Warning: action_id {action_id} is out of range (expected 1–8). Ignoring.")
+        print(
+            f"[EEG] Warning: action_id {action_id} is out of range (expected 1–8). Ignoring."
+        )
         return
 
     ACTIONS[action_id]()
 
 
-# --- Interactive Test Mode ---
+# ── Listener loop ─────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
-    print("=" * 40)
-    print("  EEG Spotify Controller - Test Mode")
-    print("=" * 40)
-    print("  1  →  Play / Pause")
-    print("  2  →  Volume Up")
-    print("  3  →  Volume Down")
-    print("  4  →  Skip (Next Track)")
-    print("  5  →  Previous Track")
-    print("  6  →  Shuffle Toggle")
-    print("  7  →  Mute Toggle")
-    print("  8  →  Repeat Toggle")
-    print("  q  →  Quit")
-    print("=" * 40)
-    print("Make sure Spotify is open!\n")
+    print("── Spotify EEG Controller ──────────────────────────")
+    print(f"   Polling {SHARED_FILE}  every {int(POLL_INTERVAL * 1000)}ms")
+    print("   Make sure Spotify is open and eeg_live.py is running")
+    print("   Ctrl-C to stop\n")
+
+    while not SHARED_FILE.exists():
+        print("  Waiting for eeg_live.py to start …")
+        time.sleep(1)
+
+    last_seen = "0"
 
     while True:
-        raw = input("Enter action (1-8) or 'q' to quit: ").strip()
+        raw = SHARED_FILE.read_text().strip()
 
-        if raw.lower() == "q":
-            print("Exiting test mode.")
-            break
+        if raw != "0" and raw != last_seen:
+            handle_action(int(raw))
 
-        if not raw.isdigit():
-            print("  ⚠ Please enter a number between 1 and 8.\n")
-            continue
+        last_seen = raw
+        time.sleep(POLL_INTERVAL)
 
-        handle_action(int(raw))
-        print()
+
+# # --- Interactive Test Mode ---
+
+# if __name__ == "__main__":
+#     print("=" * 40)
+#     print("  EEG Spotify Controller - Test Mode")
+#     print("=" * 40)
+#     print("  1  →  Play / Pause")
+#     print("  2  →  Volume Up")
+#     print("  3  →  Volume Down")
+#     print("  4  →  Skip (Next Track)")
+#     print("  5  →  Previous Track")
+#     print("  6  →  Shuffle Toggle")
+#     print("  7  →  Mute Toggle")
+#     print("  8  →  Repeat Toggle")
+#     print("  q  →  Quit")
+#     print("=" * 40)
+#     print("Make sure Spotify is open!\n")
+
+#     while True:
+#         raw = input("Enter action (1-8) or 'q' to quit: ").strip()
+
+#         if raw.lower() == "q":
+#             print("Exiting test mode.")
+#             break
+
+#         if not raw.isdigit():
+#             print("  ⚠ Please enter a number between 1 and 8.\n")
+#             continue
+
+#         handle_action(int(raw))
+#         print()
