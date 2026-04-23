@@ -85,7 +85,7 @@ def make_per_trigger_dataloaders(
     root_dir: str,
     batch_size: int = 32,
     train_split: float = 0.8,
-    seed: int = 41526,
+    seed: int = 42,
     **dataset_kwargs,
 ) -> dict[int, tuple[DataLoader, DataLoader]]:
     """
@@ -111,7 +111,9 @@ def make_per_trigger_dataloaders(
     unique_labels = sorted(y_all.unique().tolist())
     no_activity_mask = y_all == 0
 
-    print(f"Found {len(unique_labels)} unique labels: {[int(l) for l in unique_labels]}")
+    print(
+        f"Found {len(unique_labels)} unique labels: {[int(l) for l in unique_labels]}"
+    )
     print(f"No-activity windows (label 0): {no_activity_mask.sum().item()}\n")
 
     per_trigger_loaders: dict[int, tuple[DataLoader, DataLoader]] = {}
@@ -165,7 +167,7 @@ def make_group_dataloader(
     trigger_labels: list[int],
     batch_size: int = 32,
     train_split: float = 0.8,
-    seed: int = 41526,
+    seed: int = 42,
     **dataset_kwargs,
 ) -> tuple[DataLoader, DataLoader]:
     """
@@ -206,7 +208,9 @@ def make_group_dataloader(
     train_ds, valid_ds = random_split(ds, [n_train, n_valid], generator=split_gen)
 
     shuffle_gen = torch.Generator().manual_seed(seed + 1)
-    train_loader = DataLoader(train_ds, batch_size=batch_size, shuffle=True, generator=shuffle_gen)
+    train_loader = DataLoader(
+        train_ds, batch_size=batch_size, shuffle=True, generator=shuffle_gen
+    )
     valid_loader = DataLoader(valid_ds, batch_size=batch_size, shuffle=False)
 
     counts = {int(l): (y_sub == l).sum().item() for l in sorted(keep)}
@@ -222,7 +226,7 @@ def make_three_group_dataloaders(
     root_dir: str,
     batch_size: int = 32,
     train_split: float = 0.8,
-    seed: int = 41526,
+    seed: int = 42,
     **dataset_kwargs,
 ) -> dict[str, tuple[DataLoader, DataLoader]]:
     """
@@ -236,8 +240,8 @@ def make_three_group_dataloaders(
     dict  {"group_eye": (train, valid), "group_jaw": ..., "group_face": ...}
     """
     groups = {
-        "group_eye":  [1, 2, 3],
-        "group_jaw":  [4, 5, 6],
+        "group_eye": [1, 2, 3],
+        "group_jaw": [4, 5, 6],
         "group_face": [7, 8],
     }
 
@@ -332,7 +336,7 @@ def main():
         root_dir,
         batch_size=32,
         train_split=0.8,
-        seed=41526,
+        seed=42,
         sample_rate=300,
         chunk_seconds=1.5,
         skip_after_prompt_seconds=0.25,
@@ -342,8 +346,10 @@ def main():
     # Quick sanity-check: print one batch from each per-trigger loader
     for label, (tr_loader, va_loader) in per_loaders.items():
         for X_b, y_b in tr_loader:
-            print(f"\n  [Label {label}] batch shape={X_b.shape}, "
-                  f"unique y in batch={y_b.unique().tolist()}")
+            print(
+                f"\n  [Label {label}] batch shape={X_b.shape}, "
+                f"unique y in batch={y_b.unique().tolist()}"
+            )
             break
 
     # ── Three-group loaders ────────────────────────────────────────────────
@@ -351,7 +357,7 @@ def main():
         root_dir,
         batch_size=32,
         train_split=0.8,
-        seed=41526,
+        seed=42,
         sample_rate=300,
         chunk_seconds=1.5,
         skip_after_prompt_seconds=0.25,
@@ -360,8 +366,10 @@ def main():
 
     for group_name, (tr_loader, va_loader) in group_loaders.items():
         for X_b, y_b in tr_loader:
-            print(f"\n  [{group_name}] batch shape={X_b.shape}, "
-                  f"unique y in batch={y_b.unique().tolist()}")
+            print(
+                f"\n  [{group_name}] batch shape={X_b.shape}, "
+                f"unique y in batch={y_b.unique().tolist()}"
+            )
             break
 
 
