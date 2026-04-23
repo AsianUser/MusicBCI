@@ -2,7 +2,7 @@
 #SBATCH --job-name=MusicBCI_train
 #SBATCH --output=sbatch_outputs/MusicBCI_%j.out
 #SBATCH --error=sbatch_outputs/MusicBCI_%j.err
-#SBATCH --time=4:00:00
+#SBATCH --time=1:00:00
 #SBATCH --mem=16G
 #SBATCH --cpus-per-task=2
 
