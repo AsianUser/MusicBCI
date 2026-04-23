@@ -60,10 +60,24 @@ def create_windows_generic(
 
         windows.append(data[start:end].T.copy())  # [channels, time]
         valid_onsets.append(int(onset))
-        labels.append(int(trigger[onset]) - 1 if label_from_trigger else 0)
+        labels.append(int(trigger[onset]) if label_from_trigger else 0)
 
     if len(windows) == 0:
         return np.empty((0, len(eeg_cols), chunk_samples), dtype=np.float32), [], []
+
+    gap_boundaries = [0] + list(onsets) + [len(data)]
+
+    for gap_start, gap_end in zip(gap_boundaries[:-1], gap_boundaries[1:]):
+        region_start = gap_start + skip_samples  # stay clear of the previous trigger
+        region_end = gap_end - skip_samples  # stay clear of the upcoming trigger
+        win_end = region_start + chunk_samples
+
+        if win_end > region_end:
+            continue  # gap too small
+
+        windows.append(data[region_start:win_end].T.copy())
+        valid_onsets.append(int(region_start))
+        labels.append(0)
 
     return np.stack(windows).astype(np.float32), valid_onsets, labels, eeg_cols
 
