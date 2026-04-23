@@ -75,7 +75,7 @@ def make_per_trigger_dataloaders(
     root_dir: str,
     batch_size: int = 32,
     train_split: float = 0.8,
-    seed: int = 42,
+    seed: int = 4321,
     **dataset_kwargs,
 ) -> dict[int, tuple[DataLoader, DataLoader]]:
     """
@@ -158,7 +158,7 @@ def make_group_dataloader(
     trigger_labels: list[int],
     batch_size: int = 32,
     train_split: float = 0.8,
-    seed: int = 42,
+    seed: int = 4321,
     **dataset_kwargs,
 ) -> tuple[DataLoader, DataLoader]:
     """
@@ -217,7 +217,7 @@ def make_three_group_dataloaders(
     root_dir: str,
     batch_size: int = 32,
     train_split: float = 0.8,
-    seed: int = 42,
+    seed: int = 4321,
     **dataset_kwargs,
 ) -> dict[str, tuple[DataLoader, DataLoader]]:
     """
@@ -327,7 +327,7 @@ def main():
         root_dir,
         batch_size=32,
         train_split=0.8,
-        seed=42,
+        seed=4321,
         sample_rate=300,
         chunk_seconds=1.5,
         skip_after_prompt_seconds=0.25,
@@ -348,7 +348,7 @@ def main():
         root_dir,
         batch_size=32,
         train_split=0.8,
-        seed=42,
+        seed=4321,
         sample_rate=300,
         chunk_seconds=1.5,
         skip_after_prompt_seconds=0.25,
