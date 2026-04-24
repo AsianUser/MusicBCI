@@ -9,7 +9,7 @@ def create_windows_generic(
     sample_rate: int = 300,
     marker_col: str = "Trigger",
     chunk_seconds: float = 1.5,
-    skip_after_prompt_seconds: float = 0.25,
+    skip_after_prompt_seconds: float = 0,
     label_from_trigger: bool = True,
     normalize: bool = True,
 ):
@@ -87,7 +87,7 @@ def create_windows_raise_triggers(
     sample_rate: int = 300,
     marker_col: str = "Trigger",
     chunk_seconds: float = 1.5,
-    skip_after_prompt_seconds: float = 0.25,
+    skip_after_prompt_seconds: float = 0,
     normalize: bool = True,
     long_gap_seconds: float = 10.0,
 ):

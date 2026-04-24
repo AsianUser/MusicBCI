@@ -150,9 +150,7 @@ def make_dataset_from_folder(
         "file_meta": file_meta,
         "sample_rate": dataset_kwargs.get("sample_rate", 300),
         "chunk_seconds": dataset_kwargs.get("chunk_seconds", 1.5),
-        "skip_after_prompt_seconds": dataset_kwargs.get(
-            "skip_after_prompt_seconds", 0.25
-        ),
+        "skip_after_prompt_seconds": dataset_kwargs.get("skip_after_prompt_seconds", 0),
     }
 
     return dataset, meta
@@ -381,7 +379,7 @@ def main():
         root_dir,
         sample_rate=300,
         chunk_seconds=1.5,
-        skip_after_prompt_seconds=0.25,
+        skip_after_prompt_seconds=0,
         normalize=True,
     )
 
@@ -418,7 +416,7 @@ def main():
         seed=4321,
         sample_rate=300,
         chunk_seconds=1.5,
-        skip_after_prompt_seconds=0.25,
+        skip_after_prompt_seconds=0,
         normalize=True,
     )
 
@@ -439,7 +437,7 @@ def main():
         seed=4321,
         sample_rate=300,
         chunk_seconds=1.5,
-        skip_after_prompt_seconds=0.25,
+        skip_after_prompt_seconds=0,
         normalize=True,
     )
 

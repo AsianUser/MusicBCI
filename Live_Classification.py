@@ -33,7 +33,7 @@ ROOT_DIR = "MusicBCI_Data"
 DATASET_KWARGS = dict(
     sample_rate=SAMPLE_RATE,
     chunk_seconds=CHUNK_SECONDS,
-    skip_after_prompt_seconds=0.25,
+    skip_after_prompt_seconds=0,
     normalize=True,
 )
 
