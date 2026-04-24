@@ -209,3 +209,5 @@ __marimo__/
 MusicBCI_Data/
 
 sbatch_outputs/
+checkpoints
+

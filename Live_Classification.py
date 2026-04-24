@@ -14,17 +14,18 @@ import time
 import numpy as np
 from pathlib import Path
 from mne_lsl.stream import StreamLSL
+from mne_lsl.lsl import resolve_streams
 
 from model import EEG_CNN
 from DataLoader import make_dataset_from_folder
 
 # ── Config ────────────────────────────────────────────────────────────────────
-SHARED_FILE = Path("/tmp/eeg_action.txt")
+SHARED_FILE = Path("tmp/eeg_action.txt")
 COOLDOWN_SECONDS = 1.5
 CONFIDENCE_THRESHOLD = 0.6
 
 SAMPLE_RATE = 300
-CHUNK_SECONDS = 1.5
+CHUNK_SECONDS = 1.6
 WINDOW_SAMPLES = int(SAMPLE_RATE * CHUNK_SECONDS)  # 450 samples per window
 
 # ── Load model ────────────────────────────────────────────────────────────────
@@ -36,13 +37,17 @@ DATASET_KWARGS = dict(
     normalize=True,
 )
 
+print("Loading model and dataset ...")
+
 dataset, meta = make_dataset_from_folder(ROOT_DIR, **DATASET_KWARGS)
 input_channels = meta["X"].shape[1]
 num_classes = int(dataset.tensors[1].max().item()) + 1
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model = EEG_CNN(input_channels=input_channels, num_classes=num_classes)
-model.load_state_dict(torch.load("checkpoints/model_full.pt", map_location="cpu"))
+model.load_state_dict(
+    torch.load("checkpoints/model_full dataset.pt", map_location="cpu")
+)
 model.to(device).eval()
 
 print(f"Model loaded | writing actions to {SHARED_FILE}")
@@ -50,13 +55,21 @@ SHARED_FILE.write_text("0")
 
 # ── Connect to LSL stream ─────────────────────────────────────────────────────
 print("Connecting to LSL stream ...")
-from mne_lsl.lsl import resolve_streams
 
-# Find all streams
-streams = resolve_streams()
+streams = resolve_streams(timeout=5.0)
 print(f"Found {len(streams)} stream(s):")
 for stream in streams:
-    print(f"  - {stream.name} ({stream.stype}) @ {stream.sfreq} Hz")
+    print(f"{stream.name} ({stream.stype}) at {stream.sfreq} Hz")
+
+stream = StreamLSL(bufsize=10, name="WS-default", stype="EEG")
+stream.connect(
+    acquisition_delay=0.1, timeout=5
+)  # try .connect(acquisition_delay=0.1, timeout=5) if running into issues with sync
+
+### Stream info, sampling frequency, channel count ###
+info = stream.info
+fs = stream.info["sfreq"]
+n_channels = len(info["ch_names"])
 
 # Or filter by name/type
 eeg_streams = resolve_streams(timeout=5.0, stype="EEG")
@@ -70,7 +83,7 @@ stream = StreamLSL(
     bufsize=CHUNK_SECONDS * 2, name=dsi_stream[0].name if dsi_stream else None
 )  # name=None picks first available
 stream.connect()
-print(f"Connected | channels={stream.n_channels} sfreq={stream.info['sfreq']}")
+print(f"Connected | channels={stream._ref_channels} sfreq={stream.info['sfreq']}")
 
 
 def get_eeg_window() -> np.ndarray | None:

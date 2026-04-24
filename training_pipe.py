@@ -173,7 +173,7 @@ def main() -> dict[str, dict]:
         valid_loader,
         input_channels=input_channels,
         num_classes=num_classes,
-        label="full dataset",
+        label="full_dataset",
     )
 
     # ── 2. Per-trigger runs ─────────────────────────────────────────────────
