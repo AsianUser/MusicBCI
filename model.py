@@ -53,18 +53,24 @@ class EEG_CNN(nn.Module):
         # we use adaptive pooling to make it work for ANY window size
         self.adaptive_pool = nn.AdaptiveAvgPool1d(1)
 
+        self.dropout_conv = nn.Dropout(p=0.3)  # lighter dropout after conv
+        self.dropout_fc = nn.Dropout(p=0.5)  # stronger dropout before classifier
+
         # After adaptive pooling, output is [batch, 128, 1] → flatten → 128
         self.fc_input_features = 128
 
         # Define fully connected layers
-        self.fc1 = nn.Linear(self.fc_input_features, 512)
-        self.fc2 = nn.Linear(512, num_classes)
+        self.fc1 = nn.Linear(self.fc_input_features, 64)
+        self.fc2 = nn.Linear(64, num_classes)
 
     def forward(self, x):
         # x shape: [batch, channels, time]
 
         x = self.pool(F.relu(self.conv1(x)))
+        x = self.dropout_conv(x)
+
         x = self.pool(F.relu(self.conv2(x)))
+        x = self.dropout_conv(x)
 
         # Reduce time dimension to 1
         x = self.adaptive_pool(x)
@@ -73,6 +79,7 @@ class EEG_CNN(nn.Module):
         x = x.view(x.size(0), -1)
 
         x = F.relu(self.fc1(x))
+        x = self.dropout_fc(x)
         x = self.fc2(x)
 
         # IMPORTANT:
