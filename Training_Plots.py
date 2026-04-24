@@ -5,9 +5,11 @@ import matplotlib.ticker as ticker
 from pathlib import Path
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 
+# Single source of truth — defined in DataLoader.py
 from DataLoader import GLOBAL_CLASS_NAMES
 
-# ── Helpers ─────────────────────────────────────────────────────────────────
+
+# ── Helpers ──────────────────────────────────────────────────────────────────
 
 
 def collect_preds(model, loader, device):
@@ -78,7 +80,7 @@ def plot_confusion_matrix(
     plt.close(fig)
 
 
-# ── Training curves ──────────────────────────────────────────────────────────
+# ── Training curves ───────────────────────────────────────────────────────────
 
 
 def plot_training_curves(
@@ -94,7 +96,7 @@ def plot_training_curves(
 
     Parameters
     ----------
-    results    : dict returned by train.main() / generate_all_confusion_matrices
+    results    : dict returned by train.main()
     output_dir : folder where the PNG is saved
     ncols      : number of columns in the subplot grid (default 3)
     """
@@ -125,7 +127,7 @@ def plot_training_curves(
 
         epochs_range = range(1, len(epoch_losses) + 1)
 
-        # ── Left y-axis: train loss ──────────────────────────────────────
+        # ── Left y-axis: train loss ───────────────────────────────────────
         color_loss = "#2563EB"  # blue
         ax.plot(
             epochs_range, epoch_losses, color=color_loss, lw=1.5, label="Train loss"
@@ -135,7 +137,7 @@ def plot_training_curves(
         ax.tick_params(axis="y", labelcolor=color_loss)
         ax.yaxis.set_major_formatter(ticker.FormatStrFormatter("%.3f"))
 
-        # ── Right y-axis: validation accuracy ───────────────────────────
+        # ── Right y-axis: validation accuracy ────────────────────────────
         ax2 = ax.twinx()
         color_acc = "#DC2626"  # red
         val_epochs = sorted(val_ckpts.keys())
@@ -155,7 +157,7 @@ def plot_training_curves(
         ax2.tick_params(axis="y", labelcolor=color_acc)
         ax2.yaxis.set_major_formatter(ticker.PercentFormatter(xmax=1, decimals=0))
 
-        # ── Best val-acc marker ──────────────────────────────────────────
+        # ── Best val-acc marker ───────────────────────────────────────────
         best_epoch = max(val_ckpts, key=val_ckpts.get)
         best_acc = val_ckpts[best_epoch]
         ax2.axvline(best_epoch, color=color_acc, lw=0.8, linestyle="--", alpha=0.5)
@@ -168,9 +170,9 @@ def plot_training_curves(
             color=color_acc,
         )
 
-        # ── Title & combined legend ──────────────────────────────────────
-        final_acc = res["final_val_acc"]
-        ax.set_title(f"{key}  (final val acc = {final_acc:.3f})", fontsize=9)
+        # ── Title & combined legend ───────────────────────────────────────
+        best_val_acc = max(val_ckpts.values())
+        ax.set_title(f"{key}  (best val acc = {best_val_acc:.3f})", fontsize=9)
 
         lines = ax.get_lines() + ax2.get_lines()
         labels = [l.get_label() for l in lines]
@@ -187,31 +189,19 @@ def plot_training_curves(
     plt.close(fig)
 
 
-# ── Label name maps ──────────────────────────────────────────────────────────
-# Edit these to match your actual trigger meanings.
-GLOBAL_CLASS_NAMES: dict[int, str] = {
-    0: "noActivity",
-    1: "blink",
-    2: "winkLeft",
-    3: "winkRight",
-    4: "jawFull",
-    5: "jawLeft",
-    6: "jawRight",
-    7: "faceLeft",
-    8: "faceRight",
-}
+# ── Helpers ───────────────────────────────────────────────────────────────────
 
 
 def class_names_for_labels(labels: list[int]) -> list[str]:
     return [GLOBAL_CLASS_NAMES.get(l, str(l)) for l in sorted(labels)]
 
 
-# ── Main ─────────────────────────────────────────────────────────────────────
+# ── Main ──────────────────────────────────────────────────────────────────────
 
 
 def generate_all_confusion_matrices(
-    results: dict,  # output of train.main()
-    valid_loaders: dict,  # {"full": loader, "trigger_0": loader, ..., "group_eye": loader, ...}
+    results: dict,
+    valid_loaders: dict,
     output_dir: str = "confusion_matrices",
 ):
     """
@@ -227,7 +217,17 @@ def generate_all_confusion_matrices(
     for key, result in results.items():
         print(f"\n[{key}]")
 
-        model = result["model"].to(device)
+        model = result["model"]
+
+        # Load the best checkpoint saved during training
+        ckpt_path = Path("checkpoints") / f"model_{result['label']}.pt"
+        if ckpt_path.exists():
+            model.load_state_dict(torch.load(ckpt_path, map_location="cpu"))
+            print(f"  ↩ Loaded best checkpoint: {ckpt_path}")
+        else:
+            print(f"  ⚠ No checkpoint found at {ckpt_path}, using final-epoch weights")
+
+        model = model.to(device)
         loader = valid_loaders[key]
 
         y_true, y_pred = collect_preds(model, loader, device)
@@ -235,17 +235,19 @@ def generate_all_confusion_matrices(
         present_labels = sorted(set(y_true) | set(y_pred))
         names = class_names_for_labels(present_labels)
 
+        best_val_acc = max(result["val_checkpoints"].values())
+
         plot_confusion_matrix(
             y_true,
             y_pred,
-            title=f"Confusion Matrix — {key}  (val acc={result['final_val_acc']:.3f})",
+            title=f"Confusion Matrix — {key}  (best val acc={best_val_acc:.3f})",
             save_path=output_dir / f"cm_{key}.png",
             class_names=names,
         )
 
 
 # ── Standalone usage ──────────────────────────────────────────────────────────
-# If you just want to run this file directly, import your train pipeline here.
+
 
 if __name__ == "__main__":
     from training_pipe import (
@@ -263,13 +265,11 @@ if __name__ == "__main__":
     )
     from torch.utils.data import DataLoader
 
-    # ── Re-run (or load cached) training ─────────────────────────────────────
+    # ── Re-run (or load cached) training ──────────────────────────────────
     print("Running training pipeline …")
     results = run_training()
 
-    # ── Rebuild the validation loaders in the same order ─────────────────────
-    # (DataLoaders are not stored in `results`; we rebuild them with the same
-    #  seeds so the splits are identical to what the model was validated on.)
+    # ── Rebuild the validation loaders ────────────────────────────────────
     valid_loaders: dict[str, DataLoader] = {}
 
     # Full dataset
@@ -300,7 +300,7 @@ if __name__ == "__main__":
     )
     valid_loaders["group_2358"] = custom_va
 
-    # ── Generate ───────────────────────────────────────────────────────────────
+    # ── Generate ───────────────────────────────────────────────────────────
     generate_all_confusion_matrices(
         results, valid_loaders, output_dir="confusion_matrices"
     )
