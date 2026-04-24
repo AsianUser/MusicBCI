@@ -56,7 +56,7 @@ def load_one_csv(csv_path: Path, trigger_col: str = "Trigger", **dataset_kwargs)
 def make_dataset_from_folder(
     root_dir: str,
     trigger_col: str = "Trigger",
-    no_activity_fraction: float = 0.5,  # ← NEW
+    no_activity_fraction: float = 0.30,  # ← NEW
     seed: int = 0,  # ← NEW (for reproducibility)
     **dataset_kwargs,
 ):
@@ -163,7 +163,7 @@ def make_per_trigger_dataloaders(
     batch_size: int = 32,
     train_split: float = 0.8,
     seed: int = 4321,
-    no_activity_fraction: float = 0.5,  # ← NEW
+    no_activity_fraction: float = 0.3,
     **dataset_kwargs,
 ):
     """
