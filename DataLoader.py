@@ -36,9 +36,7 @@ def load_one_csv(csv_path: Path, trigger_col: str = "Trigger", **dataset_kwargs)
     # rather than forwarding trigger_col as a kwarg it doesn't accept.
     df = df.rename(columns={trigger_col: "Trigger"})
 
-    windows, onsets, labels, eeg_cols = create_windows_generic(
-        df, **dataset_kwargs
-    )
+    windows, onsets, labels, eeg_cols = create_windows_generic(df, **dataset_kwargs)
 
     # ── Per-file label inventory ──────────────────────────────────────────────
     if labels is not None and len(labels) > 0:
@@ -55,7 +53,13 @@ def load_one_csv(csv_path: Path, trigger_col: str = "Trigger", **dataset_kwargs)
     return windows, onsets, labels, eeg_cols
 
 
-def make_dataset_from_folder(root_dir: str, trigger_col: str = "Trigger", **dataset_kwargs):
+def make_dataset_from_folder(
+    root_dir: str,
+    trigger_col: str = "Trigger",
+    no_activity_fraction: float = 0.5,  # ← NEW
+    seed: int = 0,  # ← NEW (for reproducibility)
+    **dataset_kwargs,
+):
     root_dir = Path(root_dir)
     csv_files = sorted(root_dir.rglob("*.csv"))
 
@@ -65,6 +69,33 @@ def make_dataset_from_folder(root_dir: str, trigger_col: str = "Trigger", **data
     all_X = []
     all_y = []
     all_sources = []
+
+    X_all = torch.cat(all_X, dim=0)
+    y_all = torch.cat(all_y, dim=0)
+
+    # ── Subsample no-activity (label 0) windows ───────────────────────────
+    if 0.0 < no_activity_fraction < 1.0:
+        no_act_idx = (y_all == 0).nonzero(as_tuple=True)[0]
+        other_idx = (y_all != 0).nonzero(as_tuple=True)[0]
+
+        rng = torch.Generator().manual_seed(seed)
+        n_keep = int(len(no_act_idx) * no_activity_fraction)
+        perm = torch.randperm(len(no_act_idx), generator=rng)[:n_keep]
+        kept_no_act_idx = no_act_idx[perm]
+
+        keep_idx = torch.cat([kept_no_act_idx, other_idx]).sort().values
+        X_all = X_all[keep_idx]
+        y_all = y_all[keep_idx]
+
+        # Update sources list to stay in sync
+        all_sources = [all_sources[i] for i in keep_idx.tolist()]
+
+        print(
+            f"  [no-activity subsampling] kept {n_keep:,} / "
+            f"{len(no_act_idx):,} label-0 windows "
+            f"({no_activity_fraction:.0%})"
+        )
+
     file_meta = []
 
     for csv_path in csv_files:
@@ -107,7 +138,7 @@ def make_dataset_from_folder(root_dir: str, trigger_col: str = "Trigger", **data
     print(f"  {'Label':>6}  {'Name':<14}  {'Count':>6}  {'%':>6}")
     print(f"{'─' * 42}")
     for lbl in sorted(global_counts):
-        name  = GLOBAL_CLASS_NAMES.get(int(lbl), f"unknown_{lbl}")
+        name = GLOBAL_CLASS_NAMES.get(int(lbl), f"unknown_{lbl}")
         count = global_counts[lbl]
         print(f"  {int(lbl):>6}  {name:<14}  {count:>6,}  {count/total:>5.1%}")
     print(f"{'─' * 42}")
@@ -136,8 +167,9 @@ def make_per_trigger_dataloaders(
     batch_size: int = 32,
     train_split: float = 0.8,
     seed: int = 4321,
+    no_activity_fraction: float = 0.5,  # ← NEW
     **dataset_kwargs,
-) -> dict[int, tuple[DataLoader, DataLoader]]:
+):
     """
     Build one (train_loader, valid_loader) pair per unique trigger label.
 
@@ -153,7 +185,9 @@ def make_per_trigger_dataloaders(
     dict  {label: (train_loader, valid_loader)}
         Keys are ints matching the values found in y_all.
     """
-    _, meta = make_dataset_from_folder(root_dir, **dataset_kwargs)
+    _, meta = make_dataset_from_folder(
+        root_dir, no_activity_fraction=no_activity_fraction, seed=seed, **dataset_kwargs
+    )
 
     X_all: torch.Tensor = meta["X"]  # [N, channels, time]
     y_all: torch.Tensor = meta["y"]  # [N]
@@ -349,6 +383,8 @@ def main():
 
     dataset, meta = make_dataset_from_folder(
         root_dir,
+        no_activity_fraction=0.5,  # ← keep 50 % of label-0
+        seed=42,
         sample_rate=300,
         chunk_seconds=1.5,
         skip_after_prompt_seconds=0.25,
